@@ -81,7 +81,7 @@ endat_clk           : in  std_logic;     -- Clock input from the EnDat sniffer H
 endat_data          : in  std_logic;     -- Data input from the EnDat sniffer Hardware
 endat_enable        : in  std_logic;     -- request to sniff EnDat tranmission
 -- Input / Output ports
-endat_mode_out      : out std_logic_vector(7 downto 0);  -- All data
+endat_mode_out      : out std_logic_vector(8 downto 0);  -- All data
 endat_Position_out  : out std_logic_vector(31 downto 0);  -- All data
 endat_Data_1_out    : out std_logic_vector(31 downto 0);  -- All data
 endat_Data_2_out    : out std_logic_vector(31 downto 0);  -- All data
@@ -103,7 +103,7 @@ port
   endat_clk           : in  std_logic;     
   endat_data          : in  std_logic;     
   endat_enable        : in  std_logic;     
-  endat_mode_out      : out std_logic_vector(7 downto 0);  
+  endat_mode_out      : out std_logic_vector(8 downto 0);  
   endat_Position_out  : out std_logic_vector(31 downto 0);  
   endat_Data_1_out    : out std_logic_vector(31 downto 0);  
   endat_Data_2_out    : out std_logic_vector(31 downto 0);  
@@ -118,7 +118,7 @@ signal Baud_Rate_Enable_i               : std_logic;
 signal endat_clk_i                      : std_logic;
 signal endat_data_i                     : std_logic;
 signal endat_enable_i                   : std_logic;
-signal endat_mode_out_i                 : std_logic_vector(7 downto 0);         
+signal endat_mode_out_i                 : std_logic_vector(8 downto 0);         
 signal endat_Position_out_i             : std_logic_vector(31 downto 0);     
 signal endat_Data_1_out_i               : std_logic_vector(31 downto 0);
 signal endat_Data_2_out_i               : std_logic_vector(31 downto 0);         
@@ -133,7 +133,7 @@ signal Version_EndatSniffer             : std_logic_vector(7 downto 0);
 signal EndatSniffer_Version_Request_i   : std_logic;
 signal EndatSniffer_Version_Load_i      : std_logic;
 signal Endat_Request_i                  : std_logic;
-signal mode_data_i                      : std_logic_vector(7 downto 0); 
+signal mode_data_i                      : std_logic_vector(8 downto 0); 
 signal pos_data_i                       : std_logic_vector(31 downto 0); 
 signal add_data_1_i                     : std_logic_vector(31 downto 0);
 signal add_data_2_i                     : std_logic_vector(31 downto 0);        
@@ -155,8 +155,9 @@ type endat_emulate_states is (Idle, clock_gen)
                               ;
 --type endat_emulate_states is (request_data, start_cond, test_select, send_mode, read_pos, 
 --                              send_data, read_data_1, read_data_2, read_data_3, read_data_4);
-type transceiver_states is (Idle, mode_gen, mode_write, data_gen, data_write, add_data_gen) 
-                             ;
+type transceiver_states is (Idle, mode_gen, mode_write, pos_data_gen, pos_data_write,
+                            add_data_1_gen, add_data_1_write, add_data_2_gen, add_data_2_write) 
+                            ;
 signal endat_emulate_state           : endat_emulate_states;
 signal transceiver_state             : transceiver_states;
 
@@ -329,9 +330,10 @@ variable Request_Data_cnt   : integer range 0 to 1000_000;
 variable clock_cnt          : integer range 0 to 400;
 variable data_cnt           : integer range 0 to 100;
 variable send_read_cnt      : integer range 0 to 20;
-variable mode_cycle_count   : integer range 0 to 32;
-variable pos_cycle_count    : integer range 0 to 32;
-variable data_cycle_count   : integer range 0 to 32;
+variable mode_cycle_count   : integer range 0 to 33;
+variable pos_cycle_count    : integer range 0 to 33;
+variable data_cycle_count   : integer range 0 to 33;
+variable add_data_cnt       : integer range 0 to 5;
 begin
   if RST_I_i = '0' then
     endat_enable_i      <= '0';
@@ -342,9 +344,10 @@ begin
     mode_cycle_count    := 8;
     pos_cycle_count     := 0;
     data_cycle_count    := 0;
+    add_data_cnt        := 0;
     clock_latch         <= '0';
     data_cnt            := 0;
-    mode_data_i         <= x"00";
+    mode_data_i         <= (others => '0');
     endat_emulate_state <= Idle;
 
   elsif CLK_I_i'event and CLK_I_i = '1' then  
@@ -379,17 +382,18 @@ begin
 
         case transceiver_state is 
           when Idle =>
-            mode_cycle_count  := 8;
+            mode_cycle_count  := 9;
             data_cycle_count  := 0;
+            pos_cycle_count   := 0;
             transceiver_state <= mode_gen;
             clock_latch       <= '0'; 
 
           when mode_gen =>
             if endat_clk_i = '0' and clock_latch = '0' then
               clock_latch             <= '1';
-              mode_data_i             <= x"38";         -- Mode Command 00111000
+              mode_data_i             <= x"38" & '0';         -- Mode Command 00111000
               transceiver_state       <= mode_write;
-              --mode_cycle_count_count  := mode_cycle_count - 1;
+              mode_cycle_count        := mode_cycle_count - 1;
             end if;
 
           when mode_write =>
@@ -398,37 +402,76 @@ begin
               if endat_clk_i = '1' and clock_latch = '1' then
                 clock_latch       <= '0';
                 transceiver_state <= mode_gen;
-                mode_cycle_count  := mode_cycle_count - 1;
               end if;
-            elsif mode_cycle_count = 0 and endat_mode_out_i > x"00" then
+            elsif mode_cycle_count = 0 and (endat_mode_out_i > x"00" & '0') then
                 endat_data_i      <= '0';
-                transceiver_state <= data_gen;
+                transceiver_state <= pos_data_gen;
             end if;
           
-          when data_gen =>
+          when pos_data_gen =>
             if endat_clk_i = '0' then
               clock_latch         <= '1';
-              pos_data_i          <= x"7E1FC3F8";     -- Data Command 7E1FC3F8
-              transceiver_state   <= data_write;
-              --data_cycle_count    := data_cycle_count + 1; -- 0111 1110 0001 1111 1100 0011 1111 1000
-            end if;                                   -- 1 1111 1100 0011 1111 1000 0111 1111 000
-                                                      -- 1  F    C    3    F    8     7   F    0
-          when data_write =>
-            if cycle_count > 0 then
+              pos_data_i          <= x"7E1FC3F8";     -- Position Command 7E1FC3F8
+              transceiver_state   <= pos_data_write;
+            end if;
+
+          when pos_data_write =>
+            if pos_cycle_count < 32 then
               endat_data_i      <= pos_data_i(pos_cycle_count);
               if endat_clk_i = '1' and clock_latch = '1' then
                 pos_cycle_count   := pos_cycle_count + 1;
-                transceiver_state <= data_gen;
+                transceiver_state <= pos_data_gen;
               end if;
-            elsif cycle_count = 0 then
+            elsif pos_cycle_count = 32 then
               if endat_clk_i = '1' and clock_latch = '1' then
-                transceiver_state   <= data_write;
-                endat_emulate_state <= Idle;
-                cycle_count         := 31;
+                transceiver_state   <= add_data_1_gen;
+                data_cycle_count    := 0;
               end if;
             end if;
 
-          when add_data_gen =>
+          when add_data_1_gen =>
+            if endat_clk_i = '0' then
+              clock_latch         <= '1';
+              add_data_1_i        <= x"7E1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
+              transceiver_state   <= add_data_1_write;
+            end if;
+
+          when add_data_1_write =>
+            if data_cycle_count < 29 then
+              endat_data_i      <= add_data_1_i(data_cycle_count);
+              if endat_clk_i = '1' and clock_latch = '1' then
+                data_cycle_count   := data_cycle_count + 1;
+                transceiver_state <= add_data_1_gen;
+              end if;
+            elsif data_cycle_count = 29 then
+              if endat_clk_i = '1' and clock_latch = '1' then
+                endat_data_i      <= '0';
+                data_cycle_count    := 0;
+                transceiver_state   <= add_data_2_gen;
+              end if;
+            end if;
+
+          when add_data_2_gen =>
+            if endat_clk_i = '0' then
+              clock_latch         <= '1';
+              add_data_2_i        <= x"7E1FC3F8";     -- Additional Data 2 Command 7E1FC3F8
+              transceiver_state   <= add_data_2_write;
+            end if;
+
+          when add_data_2_write =>
+            if data_cycle_count < 32 then
+              endat_data_i      <= add_data_2_i(data_cycle_count);
+              if endat_clk_i = '1' and clock_latch = '1' then
+                data_cycle_count   := data_cycle_count + 1;
+                transceiver_state <= add_data_2_gen;
+              end if;
+            elsif data_cycle_count = 32 then
+              if endat_clk_i = '1' and clock_latch = '1' then
+                data_cycle_count    := 0;
+                transceiver_state   <= Idle;
+                endat_emulate_state <= Idle;
+              end if;
+            end if;
 
           when others =>
 

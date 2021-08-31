@@ -43,7 +43,7 @@ entity EndatSniffer is
   endat_data           : in  std_logic;     -- Data input from the EnDat sniffer Hardware
   endat_enable         : in  std_logic;     -- request to sniff EnDat tranmission
   -- Input / Output ports
-  endat_mode_out       : out std_logic_vector(7 downto 0);  -- All data  -- 8 downto 0 originally
+  endat_mode_out       : out std_logic_vector(8 downto 0);  -- All data  -- 8 downto 0 originally
   endat_Position_out   : out std_logic_vector(31 downto 0);  -- All data -- Updated to 33 downto 0
   endat_Data_1_out     : out std_logic_vector(31 downto 0);  -- All data
   endat_Data_2_out     : out std_logic_vector(31 downto 0);  -- All data
@@ -76,7 +76,7 @@ architecture Arch_DUT of EndatSniffer is
 
   -- Temposrary vectors to read the position and Data
   --signal  mode                : std_logic_vector (9 downto 0); GT to confirm
-  signal  mode                : std_logic_vector (7 downto 0);   -- 8 downto 0 
+  signal  mode                : std_logic_vector (8 downto 0);   -- 8 downto 0 
   signal  position            : std_logic_vector (31 downto 0);  -- Updated to std_logic_vector(33 downto 0)
   signal  data_1              : std_logic_vector (31 downto 0);
   signal  data_2              : std_logic_vector (31 downto 0);

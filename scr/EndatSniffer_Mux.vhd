@@ -47,7 +47,7 @@ entity EndatSniffer_Mux is
 -- Operation
 -------------------------------------------------------------------------------
 -- Data
-   endat_mode_out       : in std_logic_vector(7 downto 0);  -- All data
+   endat_mode_out       : in std_logic_vector(8 downto 0);  -- All data
    endat_Position_out   : in std_logic_vector(31 downto 0);  -- All data -- Updated to 33 downto 0
    endat_Data_1_out     : in std_logic_vector(31 downto 0);  -- All data
    endat_Data_2_out     : in std_logic_vector(31 downto 0);  -- All data
