@@ -1,0 +1,15 @@
+This folder contains the following firmware files used in testing for the respective modules:-
+
+1.  Baud_Rate_Generator_Test_Bench
+2.  Dual_USB_RX_UASRT_Test_Bench
+3.  Dual_USB_TX_UASRT_UASRT_Test_Bench
+4.  Main_Demux_Test_Bench
+5.  Main_Mux_Test_Bench
+6.  Noise_Diode_Test_Bench
+7.  Quad_Serial_Driver_Test_Bench
+8.  SPI_Analog_Handler_Test_Bench
+9.  SPI_Analog_Test_Bench
+10. SPI_Input_Test_Bench
+11. SPI_Output_Test_Bench
+12. Timer_Controller_Test_Bench
+13. test_bench_T - used on all testbenches

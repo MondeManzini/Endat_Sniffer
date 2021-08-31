@@ -1,0 +1,202 @@
+          --when start_cond =>
+      --  endat_enable_i  <= '0';
+      --  if clock_cnt = 200 then
+      --    endat_clk_i         <= '0';
+      --    clock_cnt           := clock_cnt + 1;
+      --    data_cnt            := data_cnt + 1;
+      --    endat_emulate_state <= test_select;
+      --  elsif clock_cnt = 400 then
+      --    clock_cnt           := 0;
+      --    endat_clk_i         <= '1';
+      --    data_cnt            := data_cnt + 1;
+      --    endat_emulate_state <= test_select;
+      --  else
+      --    clock_cnt           := clock_cnt + 1;
+      --  end if;
+
+      --when test_select => 
+      --  if send_read_cnt = 1 then             -- Read mode
+      --    endat_emulate_state <= send_mode;
+      --  elsif send_read_cnt = 2 then          -- Read position
+      --    endat_emulate_state <= read_pos;
+      --  elsif send_read_cnt = 3 then
+      --      endat_emulate_state <= send_data;
+      --  elsif send_read_cnt = 4 or send_read_cnt = 5
+      --  or send_read_cnt = 6 then
+      --    endat_emulate_state <= read_data_1;
+      --  --elsif send_read_cnt = 5 then
+      --  --  endat_emulate_state <= read_data_2;
+      --  --elsif send_read_cnt = 6 then
+      --  --  endat_emulate_state <= read_data_3;
+      --  --elsif send_read_cnt = 7 then
+      --  --  endat_emulate_state <= read_data_4;
+      --  elsif send_read_cnt = 7 or send_read_cnt = 8
+      --  or send_read_cnt = 9 then
+      --    endat_emulate_state <= read_data_2;
+      --  elsif send_read_cnt = 10 then 
+      --    send_read_cnt       := 0;
+      --    endat_emulate_state <= request_data;
+      --  end if;
+
+      --when send_mode =>
+      --  if data_cnt = 6 or data_cnt = 8 or data_cnt = 10 then     -- Mode Command 111
+      --    endat_data_i        <= '1';
+      --    endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 12 or data_cnt = 14 then  -- Mode Command 000
+      --    endat_data_i        <= '0';
+      --    endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 18 then
+      --    endat_data_i        <= '0';             -- Confirm with Glen 
+      --    endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 20 then
+      --      endat_data_i        <= '1';             -- Confirm with Glen 
+      --      endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 21 then 
+      --    endat_emulate_state <= start_cond;
+      --    endat_data_i        <= '0';             -- Confirm with Glen 
+      --  elsif data_cnt = 22 then 
+      --    data_cnt            := 0;
+      --    endat_emulate_state <= read_pos;
+      --  else
+      --    endat_emulate_state <= start_cond;
+      --  end if;
+
+      --when read_pos =>
+      --  if data_cnt = 1 or data_cnt = 8 or data_cnt = 10 then     -- Mode Command 111
+      --    endat_data_i        <= '1';
+      --    endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 12 or data_cnt = 14 then  -- Mode Command 000
+      --    endat_data_i        <= '0';
+      --    endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 18 then
+      --    endat_data_i        <= '0';             -- Confirm with Glen 
+      --    endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 20 then
+      --      endat_data_i        <= '0';             -- Confirm with Glen 
+      --      endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 21 then 
+      --    endat_emulate_state <= start_cond;
+      --    endat_data_i        <= '1';             -- Confirm with Glen 
+      --  elsif data_cnt = 22 then 
+      --    data_cnt            := 0;
+      --    endat_emulate_state <= request_data;
+      --  else
+      --    endat_emulate_state <= start_cond;
+      --  end if;
+
+      --when send_data =>
+      --  if data_cnt = 1 or data_cnt = 8 or data_cnt = 10 then     -- Mode Command 111
+      --    endat_data_i        <= '1';
+      --    endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 12 or data_cnt = 14 then  -- Mode Command 000
+      --    endat_data_i        <= '0';
+      --    endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 18 then
+      --    endat_data_i        <= '0';             -- Confirm with Glen 
+      --    endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 20 then
+      --    endat_data_i        <= '0';             -- Confirm with Glen 
+      --    endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 21 then 
+      --    endat_emulate_state <= start_cond;
+      --    endat_data_i        <= '1';             -- Confirm with Glen 
+      --    --data_cnt            := 0;
+      --  elsif data_cnt = 22 then 
+      --    data_cnt            := 0;
+      --    endat_emulate_state <= request_data;
+      --   else
+      --    endat_emulate_state <= start_cond;
+      --  end if;
+
+      --when read_data_1 =>
+      --  if data_cnt = 1 or data_cnt = 8 or data_cnt = 10 then     
+      --    endat_data_i        <= '1';
+      --    endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 12 or data_cnt = 14 then  
+      --    endat_data_i        <= '0';
+      --    endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 18 then
+      --    endat_data_i        <= '0';             
+      --    endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 20 then
+      --      endat_data_i        <= '0';             
+      --      endat_emulate_state <= start_cond;
+      --  elsif data_cnt = 21 then 
+      --    endat_emulate_state <= start_cond;
+      --    endat_data_i        <= '0';             -- Read_Data_1
+      --  elsif data_cnt = 22 then 
+      --    data_cnt            := 0;
+      --    endat_data_i        <= '0';             -- lock data_cnt
+      --    endat_emulate_state <= request_data;
+      --  else
+      --    endat_emulate_state <= start_cond;
+      --  end if;
+
+      --  when read_data_2 =>
+      --    if data_cnt = 1 or data_cnt = 7 or data_cnt = 10 then     
+      --      endat_data_i        <= '0';
+      --      endat_emulate_state <= start_cond;
+      --    elsif data_cnt = 12 or data_cnt = 14 then  
+      --      endat_data_i        <= '0';
+      --      endat_emulate_state <= start_cond;
+      --    elsif data_cnt = 18 then
+      --      endat_data_i        <= '1';             
+      --      endat_emulate_state <= start_cond;
+      --    elsif data_cnt = 20 then
+      --        endat_data_i        <= '0';             
+      --        endat_emulate_state <= start_cond;
+      --    elsif data_cnt = 21 then 
+      --      endat_emulate_state <= start_cond;
+      --      endat_data_i        <= '0';             -- Read_Data_1 continue
+      --    elsif data_cnt = 22 then 
+      --      data_cnt            := 0;
+      --      endat_emulate_state <= request_data;
+      --    else
+      --      endat_emulate_state <= start_cond;
+      --    end if;
+
+      --    when read_data_3 =>
+            --if data_cnt = 1 or data_cnt = 8 or data_cnt = 10 then     
+            -- endat_data_i        <= '1';
+            --  endat_emulate_state <= start_cond;
+            --elsif data_cnt = 12 or data_cnt = 14 then  
+            --  endat_data_i        <= '0';
+            --  endat_emulate_state <= start_cond;
+            --elsif data_cnt = 18 then
+            --  endat_data_i        <= '0';             
+            --  endat_emulate_state <= start_cond;
+            --elsif data_cnt = 20 then
+            --    endat_data_i        <= '0';             
+            --    endat_emulate_state <= start_cond;
+            --elsif data_cnt = 21 then 
+            --  endat_emulate_state <= start_cond;
+            --  endat_data_i        <= '0';             -- Read_Data_1 continue
+            --elsif data_cnt = 22 then 
+            --  data_cnt            := 0;
+            --  endat_emulate_state <= request_data;
+            --else
+            --  endat_emulate_state <= start_cond;
+            --end if;
+
+   --       when read_data_4 =>
+            --if data_cnt = 1 or data_cnt = 8 or data_cnt = 10 then     
+            --  endat_data_i        <= '1';
+            --  endat_emulate_state <= start_cond;
+            --elsif data_cnt = 12 or data_cnt = 14 then  
+            --  endat_data_i        <= '0';
+            --  endat_emulate_state <= start_cond;
+            --elsif data_cnt = 18 then
+            --  endat_data_i        <= '0';             
+            --  endat_emulate_state <= start_cond;
+            --elsif data_cnt = 20 then
+            --    endat_data_i        <= '0';             
+            --    endat_emulate_state <= start_cond;
+            --elsif data_cnt = 21 then 
+            --  endat_emulate_state <= start_cond;
+            --  endat_data_i        <= '0';             -- Read_Data_1 continue
+            --elsif data_cnt = 22 then 
+            --  data_cnt            := 0;
+            --  endat_emulate_state <= request_data;
+            --else
+            --  endat_emulate_state <= start_cond;
+            --end if;

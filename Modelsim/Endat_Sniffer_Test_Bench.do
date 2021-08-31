@@ -38,8 +38,11 @@ add wave -noupdate -radix hexadecimal /endat_sniffer_test_bench/endat_emulate_st
 add wave -noupdate /endat_sniffer_test_bench/Endat_test/clock_cnt
 add wave -noupdate /endat_sniffer_test_bench/Endat_test/send_read_cnt
 add wave -noupdate /endat_sniffer_test_bench/Endat_test/data_cnt
+add wave -noupdate /endat_sniffer_test_bench/Endat_test/cycle_count
+add wave -noupdate /endat_sniffer_test_bench/transceiver_state
+add wave -noupdate /endat_sniffer_test_bench/mode_data_i
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {995632677 ps} 0}
+WaveRestoreCursors {{Cursor 1} {189497345 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 150
 configure wave -valuecolwidth 100
@@ -55,4 +58,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ms
 update
-WaveRestoreZoom {0 ps} {1050 us}
+WaveRestoreZoom {100439223 ps} {478880922 ps}
