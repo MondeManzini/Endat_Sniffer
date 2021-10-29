@@ -7,7 +7,7 @@
 -- This module can be used to Sniff any EnDat encode using the differntail 
 -- sniffer hardware designed to read both the Clock anf Data diferentail line.
 --
--- Version Number : A            00.00.01
+-- Version Number : B            00.00.02
 -- Date           : 2021-05-06
 -- Release Date   : XXXX-XX-XX
 -- Last Updated by : Glen Taylor
@@ -18,7 +18,12 @@
 -- Last Updated by : Monde Manzini
 --                  Fixed all syntax errors
 --                  Added initialization on some signals
-
+-- Version Number : 00.00.02
+-- Date           : 2021-08-23
+-- Release Date   : XXXX-XX-XX
+-- Last Updated by : Monde Manzini
+--                  Added a Dummy State
+--                  Swapped some clock and data signals in relevant areas
 --------------------------------------------------------------------------------
 
 LIBRARY ieee;
@@ -47,7 +52,7 @@ entity EndatSniffer is
   endat_Position_out   : out std_logic_vector(31 downto 0);  -- All data -- Updated to 33 downto 0
   endat_Data_1_out     : out std_logic_vector(31 downto 0);  -- All data
   endat_Data_2_out     : out std_logic_vector(31 downto 0);  -- All data
-  data_cnt             : out integer; 
+  data_cnt             : out integer;
   -- Output ports 
   endat_data_Ready     : out std_logic
  ); 

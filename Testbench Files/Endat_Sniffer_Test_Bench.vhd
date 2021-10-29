@@ -4,7 +4,23 @@
 --
 -- This file contains  modules which make up a testbench
 -- suitable for testing the "device under test".
---
+---- Version Number : A            00.00.01
+-- Date           : 2021-05-06
+-- Release Date   : XXXX-XX-XX
+-- Last Updated by : Monde Manzini
+
+-- Version Number : B            00.00.02
+-- Date           : 2021-08-31
+-- Release Date   : XXXX-XX-XX
+-- Last Updated by : Monde Manzini
+--                  Removed delay betweeen clock signal message breaks
+
+-- Version Number : C            00.00.03
+-- Date           : 2021-09-02
+-- Release Date   : XXXX-XX-XX
+-- Last Updated by : Monde Manzini
+--                  Pulled the clock signal high at the end of the message
+--                  Pulled the data signal high at the end of the message
 -------------------------------------------------------------------------------
 library ieee;
     use ieee.std_logic_1164.all;
@@ -138,6 +154,21 @@ signal pos_data_i                       : std_logic_vector(31 downto 0);
 signal add_data_1_i                     : std_logic_vector(31 downto 0);
 signal add_data_2_i                     : std_logic_vector(31 downto 0);        
 signal clock_latch                      : std_logic;
+
+----------------------------------------------------------------------
+-- Baud Rate for Mux Signals and Component
+----------------------------------------------------------------------
+signal baud_rate_i                            : integer range 0 to 7;
+
+component Baud_Rate_Generator is
+  port (
+    Clk                                 : in  std_logic;
+    RST_I                               : in  std_logic;
+    baud_rate                           : in  integer range 0 to 7;
+    Baud_Rate_Enable                    : out std_logic  
+    );
+end component Baud_Rate_Generator;
+
 -------------------------------------------------------------------------------
 -- New Code Signal and Components
 ------------------------------------------------------------------------------- 
@@ -151,11 +182,11 @@ signal data2store                   : memory_array;
 ----------------------------------------
 -- General Signals
 -------------------------------------------------------------------------------
-type endat_emulate_states is (Idle, clock_gen) 
+type endat_emulate_states is (Idle, clock_gen, end_message) 
                               ;
 --type endat_emulate_states is (request_data, start_cond, test_select, send_mode, read_pos, 
 --                              send_data, read_data_1, read_data_2, read_data_3, read_data_4);
-type transceiver_states is (Idle, mode_gen, mode_write, pos_data_gen, pos_data_write,
+type transceiver_states is (Idle, mode_gen, mode_write, pos_data_gen, pos_data_write, next_pos_bit,
                             add_data_1_gen, add_data_1_write, add_data_2_gen, add_data_2_write) 
                             ;
 signal endat_emulate_state           : endat_emulate_states;
@@ -296,6 +327,7 @@ port map (
   baud_rate                           => 5,
   Baud_Rate_Enable                    => Baud_Rate_Enable_i 
   );
+
 Firmware_Controller_Version_Tester: process(CLK_I_i, RST_I_i)
   variable display_version_cnt  : integer range 0 to 50;
   
@@ -334,17 +366,19 @@ variable mode_cycle_count   : integer range 0 to 33;
 variable pos_cycle_count    : integer range 0 to 33;
 variable data_cycle_count   : integer range 0 to 33;
 variable add_data_cnt       : integer range 0 to 5;
+variable clock_cnt_trace    : integer range 0 to 120;
 begin
   if RST_I_i = '0' then
     endat_enable_i      <= '0';
-    endat_clk_i         <= 'Z';
-    endat_data_i        <= 'Z';
+    endat_clk_i         <= '1';
+    endat_data_i        <= '0';
     Request_Data_cnt    := 0;
     clock_cnt           := 0;
     mode_cycle_count    := 8;
     pos_cycle_count     := 0;
     data_cycle_count    := 0;
     add_data_cnt        := 0;
+    clock_cnt_trace     := 0;
     clock_latch         <= '0';
     data_cnt            := 0;
     mode_data_i         <= (others => '0');
@@ -358,6 +392,11 @@ begin
         pos_cycle_count     := 0;
         clock_cnt           := 0;
         clock_latch         <= '0';
+        endat_data_i        <= '0'; 
+        endat_clk_i         <= '1'; 
+        pos_data_i          <= (OTHERS => '0');
+        mode_data_i         <= (OTHERS => '0');
+        clock_cnt_trace     := 0;
         if Request_Data_cnt = 6500 then  -- 100 ms Retrieve 0 for 5000_000
           endat_enable_i      <= '1';                              
           Request_Data_cnt    := 0;
@@ -376,6 +415,7 @@ begin
         elsif clock_cnt = 400 then
           clock_cnt           := 0;
           endat_clk_i         <= '1';
+          clock_cnt_trace     := clock_cnt_trace + 1;
         else
           clock_cnt           := clock_cnt + 1;
         end if; 
@@ -387,6 +427,7 @@ begin
             pos_cycle_count   := 0;
             transceiver_state <= mode_gen;
             clock_latch       <= '0'; 
+            clock_cnt_trace   := 0;
 
           when mode_gen =>
             if endat_clk_i = '0' and clock_latch = '0' then
@@ -411,72 +452,94 @@ begin
           when pos_data_gen =>
             if endat_clk_i = '0' then
               clock_latch         <= '1';
-              pos_data_i          <= x"7E1FC3F8";     -- Position Command 7E1FC3F8
+              pos_data_i          <= x"8E1FC3F8";     -- Position Command 7E1FC3F8
               transceiver_state   <= pos_data_write;
             end if;
 
           when pos_data_write =>
             if pos_cycle_count < 32 then
               endat_data_i      <= pos_data_i(pos_cycle_count);
+              transceiver_state <= next_pos_bit;
+            elsif pos_cycle_count = 33 then
               if endat_clk_i = '1' and clock_latch = '1' then
-                pos_cycle_count   := pos_cycle_count + 1;
-                transceiver_state <= pos_data_gen;
+                clock_latch       <= '0';
+               -- transceiver_state   <= add_data_1_gen;
+                --pos_cycle_count   := pos_cycle_count + 1;
+                endat_emulate_state <= end_message;
+                pos_cycle_count    := 0;
+                endat_data_i  <= '1';
               end if;
-            elsif pos_cycle_count = 32 then
-              if endat_clk_i = '1' and clock_latch = '1' then
-                transceiver_state   <= add_data_1_gen;
-                data_cycle_count    := 0;
-              end if;
+            else
+              transceiver_state <= next_pos_bit;
+            end if;
+
+          when next_pos_bit =>
+            if endat_clk_i = '1' and clock_latch = '1' then
+              clock_latch       <= '0';
+              pos_cycle_count   := pos_cycle_count + 1;
+              transceiver_state <= pos_data_gen;
             end if;
 
           when add_data_1_gen =>
-            if endat_clk_i = '0' then
-              clock_latch         <= '1';
-              add_data_1_i        <= x"7E1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
-              transceiver_state   <= add_data_1_write;
-            end if;
+            --if endat_clk_i = '0' then
+            --  clock_latch         <= '1';
+            --  add_data_1_i        <= x"7E1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
+            --  transceiver_state   <= add_data_1_write;
+            --end if;
 
           when add_data_1_write =>
-            if data_cycle_count < 29 then
-              endat_data_i      <= add_data_1_i(data_cycle_count);
-              if endat_clk_i = '1' and clock_latch = '1' then
-                data_cycle_count   := data_cycle_count + 1;
-                transceiver_state <= add_data_1_gen;
-              end if;
-            elsif data_cycle_count = 29 then
-              if endat_clk_i = '1' and clock_latch = '1' then
-                endat_data_i      <= '0';
-                data_cycle_count    := 0;
-                transceiver_state   <= add_data_2_gen;
-              end if;
-            end if;
+            --if data_cycle_count < 29 then
+            --  endat_data_i      <= add_data_1_i(data_cycle_count);
+            --  if endat_clk_i = '1' and clock_latch = '1' then
+            --    data_cycle_count   := data_cycle_count + 1;
+            --    transceiver_state <= add_data_1_gen;
+            --  end if;
+            --elsif data_cycle_count = 29 then
+            --  if endat_clk_i = '1' and clock_latch = '1' then
+            --    endat_data_i      <= '0';
+            --    data_cycle_count    := 0;
+            --    transceiver_state   <= add_data_2_gen;
+            --  end if;
+            --end if;
 
           when add_data_2_gen =>
-            if endat_clk_i = '0' then
-              clock_latch         <= '1';
-              add_data_2_i        <= x"7E1FC3F8";     -- Additional Data 2 Command 7E1FC3F8
-              transceiver_state   <= add_data_2_write;
-            end if;
+            --if endat_clk_i = '0' then
+            --  clock_latch         <= '1';
+            --  add_data_2_i        <= x"7E1FC3F8";     -- Additional Data 2 Command 7E1FC3F8
+            --  transceiver_state   <= add_data_2_write;
+            --end if;
 
           when add_data_2_write =>
-            if data_cycle_count < 32 then
-              endat_data_i      <= add_data_2_i(data_cycle_count);
-              if endat_clk_i = '1' and clock_latch = '1' then
-                data_cycle_count   := data_cycle_count + 1;
-                transceiver_state <= add_data_2_gen;
-              end if;
-            elsif data_cycle_count = 32 then
-              if endat_clk_i = '1' and clock_latch = '1' then
-                data_cycle_count    := 0;
-                transceiver_state   <= Idle;
-                endat_emulate_state <= Idle;
-              end if;
-            end if;
+            --if data_cycle_count < 32 then
+            --  endat_data_i      <= add_data_2_i(data_cycle_count);
+            --  if endat_clk_i = '1' and clock_latch = '1' then
+            --    data_cycle_count    := data_cycle_count + 1;
+            --    transceiver_state   <= add_data_2_gen;
+            --  end if;
+            --elsif data_cycle_count = 32 then
+            --  if endat_clk_i = '1' and clock_latch = '1' then
+            --    data_cycle_count    := 0;
+            --    transceiver_state   <= Idle;
+            --    endat_emulate_state <= end_message;
+            --  end if;
+            --end if;
 
           when others =>
 
         end case;
 
+      when end_message =>
+        --if endat_data_ready_i = '1' then
+        --  endat_data_i  <= '1'; 
+        --end if;
+        --if endat_Position_out_i = pos_data_i then
+          if endat_clk_i = '1' and endat_data_i = '1' then
+            endat_emulate_state <= Idle;
+            transceiver_state   <= Idle;
+            --clock_cnt_trace     := 0;
+          end if;
+       -- end if;
+      
       when others =>
 
     end case;
