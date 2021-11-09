@@ -7,7 +7,7 @@
 -- This module can be used to Sniff any EnDat encode using the differntail 
 -- sniffer hardware designed to read both the Clock anf Data diferentail line.
 --
--- Version Number : B            00.00.02
+-- Version Number : C            00.00.03
 -- Date           : 2021-05-06
 -- Release Date   : XXXX-XX-XX
 -- Last Updated by : Glen Taylor
@@ -19,7 +19,7 @@
 --                  Fixed all syntax errors
 --                  Added initialization on some signals
 -- Version Number : 00.00.02
--- Date           : 2021-08-23
+-- Date           : 2021-11-09
 -- Release Date   : XXXX-XX-XX
 -- Last Updated by : Monde Manzini
 --                  Added a Dummy State
@@ -131,7 +131,6 @@ elsif(clk'EVENT AND clk = '1') THEN
             data_1               <=  (OTHERS => '0');    -- Clear Regster 
             data_2               <=  (OTHERS => '0');    -- Clear Regster
             mode_cnt             <=  7;                  -- Clear mode bit cnt  -- 8 originally 
-
             position_cnt         <=  31;                  -- Clear mode bit cnt -- 33 originally
             data_1_cnt           <=  30;                  -- Clear mode bit cnt
             data_2_cnt           <=  30;                  -- Clear mode bit cnt

@@ -409,8 +409,8 @@ begin
         
       when clock_gen =>
         endat_enable_i  <= '0';
-        if clock_cnt = 200 then
-          endat_clk_i         <= '0';
+        if clock_cnt = 200 then         
+          endat_clk_i         <= '0';    -- make a state machine that implements clock generat
           clock_cnt           := clock_cnt + 1;
         elsif clock_cnt = 400 then
           clock_cnt           := 0;
