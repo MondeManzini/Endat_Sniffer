@@ -130,7 +130,7 @@ elsif(clk'EVENT AND clk = '1') THEN
             position             <=  (OTHERS => '0');    -- Clear Regster
             data_1               <=  (OTHERS => '0');    -- Clear Regster 
             data_2               <=  (OTHERS => '0');    -- Clear Regster
-            mode_cnt             <=  7;                  -- Clear mode bit cnt  -- 8 originally 
+            mode_cnt             <=  8;                  -- Clear mode bit cnt  -- 8 originally 
             position_cnt         <=  31;                  -- Clear mode bit cnt -- 33 originally
             data_1_cnt           <=  30;                  -- Clear mode bit cnt
             data_2_cnt           <=  30;                  -- Clear mode bit cnt
@@ -188,7 +188,7 @@ elsif(clk'EVENT AND clk = '1') THEN
             when Read_Position =>
                if (position_cnt = 0) then
                   endat_Position_out   <= position;                 
-                  If endat_clk = '1' and endat_data = '1' then
+                  if endat_clk = '1' and endat_data = '1' then
                      Read_data_state   <= Send_data;
                   elsif endat_clk = '1' and endat_data = '0' then                      
                      Read_data_state   <= Read_data_1;
