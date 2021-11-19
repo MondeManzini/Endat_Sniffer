@@ -37,6 +37,8 @@ add wave -noupdate /endat_sniffer_test_bench/mode_state
 add wave -noupdate /endat_sniffer_test_bench/position_state
 add wave -noupdate /endat_sniffer_test_bench/mode_enable
 add wave -noupdate /endat_sniffer_test_bench/pos_enable
+add wave -noupdate /endat_sniffer_test_bench/crc_enable
+add wave -noupdate /endat_sniffer_test_bench/dummy_enable
 add wave -noupdate /endat_sniffer_test_bench/Endat_test/num_clks
 add wave -noupdate /endat_sniffer_test_bench/Endat_test/mode_cycle_count
 add wave -noupdate /endat_sniffer_test_bench/Endat_test/pos_cycle_count
@@ -48,7 +50,7 @@ add wave -noupdate /endat_sniffer_test_bench/Endat_test/send_read_cnt
 add wave -noupdate -radix hexadecimal /endat_sniffer_test_bench/mode_data_i
 add wave -noupdate /endat_sniffer_test_bench/Endat_test/data_cycle_count
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {155707244 ps} 0} {{Cursor 2} {130450000 ps} 0}
+WaveRestoreCursors {{Cursor 1} {38551985 ps} 0} {{Cursor 2} {130450000 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 150
 configure wave -valuecolwidth 100
@@ -64,4 +66,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {122621940 ps} {161173925 ps}
+WaveRestoreZoom {115228113 ps} {167663379 ps}
