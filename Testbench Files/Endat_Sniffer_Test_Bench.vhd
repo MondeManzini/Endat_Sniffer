@@ -323,14 +323,14 @@ begin
     case endat_emulate_state is 
       when load_params =>
         mode_data_i         <= b"000111";       -- Mode 1 Command 07 000111
-        pos_data_i          <= x"8E1FC3F8";     -- Position Command 7E1FC3F8
+        pos_data_i          <= x"89384756";     -- Position Command 7E1FC3F8
         add_data_1_i        <= x"FE1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
         add_data_2_i        <= x"7E1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
         clk_div_load        := 13;              -- 12.5 counts
         mode_cycle_count    := 6;               -- 6 Mode Bits
-        pos_div_load        := 32;              -- Position Number of Bits
-        add_data_1_div_load := 32;              -- Position Number of Bits
-        add_data_2_div_load := 32;              -- Position Number of Bits
+        pos_div_load        := 32;              -- Position Number of Bits - 28 Bits for RCN 2510 Encoder
+        add_data_1_div_load := 30;              -- Position Number of Bits
+        add_data_2_div_load := 30;              -- Position Number of Bits
         endat_emulate_state <= Idle;            
         
       when Idle => 
@@ -347,6 +347,9 @@ begin
         crc_enable        <= '0';
         mode_enable       <= '0';
         pos_enable        <= '0';
+        mod_test_data     <= b"000000";
+        pos_test_data     <= X"00000000";
+        add_test_data     <= X"00000000";
         --------- TX Generator -----------
         if Request_Data_cnt = 6500 then  -- 100 ms Retrieve 0 for 5000_000
           Request_Data_cnt  := 0;
@@ -369,7 +372,19 @@ begin
           if num_clks < 9 then                     -- Mode message
             num_clks            := num_clks + 1;
             endat_emulate_state <= op_state;
-          elsif num_clks > 8 then                  -- Position message
+          elsif num_clks > 15 then                 
+            if (pos_done_bit = '1') then             -- Position operation   
+              num_clks            := num_clks + 1;
+              pos_done_bit        <= '0';
+              endat_emulate_state <= op_state;
+            elsif crc_enable = '1' then                   -- Last two CRC bits
+              crc_enable          <= '0';
+              num_clks            := num_clks + 1;
+              endat_emulate_state <= op_state;
+            else
+              endat_emulate_state <= op_state;
+            end if;
+          else
             endat_emulate_state <= op_state;
           end if;
         else
@@ -378,46 +393,42 @@ begin
 
       when op_state =>                              -- Decides which operation
         if num_clks <= 2 then                       -- First two dummy bits
-          endat_data_i        <= '0';
+          endat_data_i        <= '1';
           endat_emulate_state <= t_high_state;
-        elsif num_clks > 2 and num_clks < 9 then   -- Mode operation
+        elsif num_clks > 2 and num_clks < 9 then    -- Mode operation
           mode_enable         <= '1';
           endat_emulate_state <= t_high_state;
-        elsif (num_clks > 8) and (num_clks < 11) then                    -- Last two mode dummy bits
+        elsif (num_clks = 9) then                   -- Bit 1 of Last two mode dummy bits
+          dummy_enable        <= '1';  
+          endat_data_i        <= '0';
+          endat_emulate_state <= t_high_state;
+        elsif (num_clks = 10) then                  -- Bit 2 of Last two mode dummy bits
           dummy_enable        <= '1';  
           endat_data_i        <= '1';
           endat_emulate_state <= t_high_state;
-        elsif num_clks > 10 and num_clks < 43 then  -- Position operation
-          pos_enable          <= '1';
+        elsif num_clks > 10 and num_clks < 16 then  -- Clock stretching 5 clocks
+          dummy_enable        <= '1';  
+          endat_data_i        <= '0';
           endat_emulate_state <= t_high_state;
-        elsif num_clks > 42 and num_clks < 48 then -- Last 5 CRC Position bits
-          crc_enable          <= '1';  
-          endat_data_i        <= '1';
-          endat_emulate_state <= t_high_state;     -- 1 dummy clock bit before data 1
-        elsif num_clks = 48 then
-          end_mode            <= '1';  
-          endat_data_i        <= '1';
-          endat_emulate_state <= t_high_state;
-        elsif num_clks = 49 then                    -- 1 dummy bit for additional data 1
-          dummy_enable        <= '1'; 
-          endat_emulate_state <= t_high_state; 
-        elsif num_clks > 49 and num_clks < 77 then  -- Additional Data 1 operation
+        elsif num_clks > 52 and num_clks < 78 then  -- Additional Data 1 operation
           add_data_1_enable   <= '1';
           endat_emulate_state <= t_high_state;
-        elsif num_clks > 76 and num_clks < 82 then  -- Last 5 CRC Additional Data 1 bits
+        elsif num_clks > 77 and num_clks < 83 then  -- Last 5 CRC Additional Data 1 bits
           add_data_1_enable          <= '1';
           endat_emulate_state <= t_high_state;
-          elsif num_clks = 82 then                    -- 1 dummy bit for additional data 1
+          elsif num_clks = 83 then                   -- 1 dummy bit for additional data 1
           dummy_enable        <= '1'; 
           endat_emulate_state <= t_high_state; 
-        elsif num_clks > 82 and num_clks < 110 then  -- Additional Data 2 operation
+        elsif num_clks > 83 and num_clks < 110 then  -- Additional Data 2 operation
           add_data_2_enable   <= '1';
           endat_emulate_state <= t_high_state;
-        elsif num_clks > 109 and num_clks < 115 then  -- Last 5 CRC Additional Data 2 bits
+        elsif num_clks > 109 and num_clks < 114 then  -- Last 5 CRC Additional Data 2 bits
           add_data_2_enable          <= '1';
           endat_emulate_state <= t_high_state;
-        elsif num_clks = 115 then                   -- End of message                
+        elsif num_clks = 114 then                   -- End of message                
           end_message         <= '1';  
+          endat_emulate_state <= t_high_state;
+        else
           endat_emulate_state <= t_high_state;
         end if;
 
@@ -425,23 +436,28 @@ begin
         if clock_cnt = clk_div_load then         
           endat_clk_i <= '1';                         -- Rising edge
           clock_cnt   := 0;
-          if num_clks <= 2 then 
-            endat_emulate_state <= t_low_state;
-          elsif (mode_done_bit = '1') then            -- mode state
+          if (mode_done_bit = '1') then            -- mode state
             mode_done_bit       <= '0';
             endat_emulate_state <= t_low_state;
           elsif dummy_enable = '1' then               -- Last two mode dummy bits
             dummy_enable        <= '0';  
             num_clks            := num_clks + 1;
             endat_emulate_state <= t_low_state;
-          elsif (pos_done_bit = '1') then             -- Position operation   
-            num_clks            := num_clks + 1;
-            pos_done_bit        <= '0';
+          elsif num_clks = 16 then                    
+            pos_enable          <= '1'; 
+            endat_data_i        <= '1';                -- Position Start Bit  
             endat_emulate_state <= t_low_state;
-          elsif crc_enable = '1' then                 -- Last two CRC bits
-            crc_enable          <= '0';
-            num_clks            := num_clks + 1;
+          elsif num_clks > 16 and num_clks < 19 then    -- F1 and F2 Bits                
+            pos_enable          <= '1'; 
+            endat_data_i        <= '0';                -- Position Start Bit  
             endat_emulate_state <= t_low_state;
+          elsif num_clks > 18 and num_clks < 47 then   -- Position operation
+            pos_enable          <= '1';
+            endat_emulate_state <= t_low_state;
+          elsif num_clks > 47 and num_clks < 53 then   -- Position 5 CRC Position bits
+            crc_enable          <= '1';  
+            endat_data_i        <= '1';
+            endat_emulate_state <= t_low_state;       -- 1 dummy clock bit before data 1
           elsif end_message = '1' then 
             end_message         <= '0';
             num_clks            := 0;
@@ -459,28 +475,12 @@ begin
             end_mode            <= '0';
             num_clks            := num_clks + 1;
             endat_emulate_state <= t_low_state;       -- End of short message
+          else
+            endat_emulate_state <= t_low_state; 
           end if;
         else
           clock_cnt             := clock_cnt + 1;
         end if; 
-
-      --when recov_time_tm =>
-        --if count_tm = 500 then        -- 10us Recovery time
-        --  count_tm      := 0;
-        --  endat_emulate_state <= recov_time_tr;
-        --else
-        --  count_tm      := count_tm + 1;
-        --  endat_data_i  <= '0';
-        --end if; 
-
-      --when recov_time_tr =>
-        --if count_tr = 25 then        -- 500ns Recovery time
-        --  count_tr            := 0;
-        --  endat_emulate_state <= load_params;
-        --else
-        --  count_tr      := count_tr + 1;
-        --  endat_data_i  <= '1';
-        --end if; 
 
 -------------------------------------------------
 ---------------- Mode State ---------------------
