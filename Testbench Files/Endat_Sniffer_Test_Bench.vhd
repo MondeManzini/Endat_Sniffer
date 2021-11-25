@@ -187,8 +187,8 @@ signal data2store                   : memory_array;
 ----------------------------------------
 -- General Signals
 -------------------------------------------------------------------------------
-type endat_emulate_states is (load_params, Idle, op_state, t_low_state, t_high_state);--, recov_time_tm);--, 
-                              --recov_time_tr);
+type endat_emulate_states is (load_params, Idle, op_state, t_low_state, t_high_state, tm_recov, 
+                              tr_recov);
 type mode_states is (Idle, mode_gen, mode_write, mode_read, check_mode_res);
 type pos_states is (Idle, pos_gen, pos_write, pos_read, check_pos_res);
 type add_data_1_states is (Idle, add_data_1_write, add_data_1_gen, add_data_1_read, check_data_1_res);
@@ -290,6 +290,8 @@ begin
     pos_div_load        := 0;
     clk_pls_trac        := 0;
     num_clks            := 0;
+    count_tm            := 0;
+    count_tr            := 0; 
     num_clks_latch      <= 0;
     clock_latch         <= '0';
     stop_clock          <= '0';
@@ -339,17 +341,18 @@ begin
         clock_cnt         := 0;
         pos_cycle_count   := pos_div_load;
         clock_latch       <= '0';
-        endat_data_i      <= '0'; 
+        endat_data_i      <= '1'; 
         endat_clk_i       <= '1'; 
-        clk_pls_trac      := 0;
+        count_tm            := 0;
+        count_tr            := 0; 
         mode_done_bit     <= '0';
         end_message       <= '0';
         crc_enable        <= '0';
         mode_enable       <= '0';
         pos_enable        <= '0';
-        mod_test_data     <= b"000000";
-        pos_test_data     <= X"00000000";
-        add_test_data     <= X"00000000";
+        --mod_test_data     <= b"000000";
+        --pos_test_data     <= X"00000000";
+        --add_test_data     <= X"00000000";
         --------- TX Generator -----------
         if Request_Data_cnt = 6500 then  -- 100 ms Retrieve 0 for 5000_000
           Request_Data_cnt  := 0;
@@ -461,8 +464,9 @@ begin
           elsif end_message = '1' then 
             end_message         <= '0';
             num_clks            := 0;
-            endat_emulate_state <= load_params;       -- End of message
+            endat_emulate_state <= tm_recov;       -- End of message
             endat_data_i        <= '1';               -- Pull data high on end
+            endat_clk_i         <= '1';               -- Pull clock high on end
           elsif add_data_1_done_bit = '1' then
             add_data_1_done_bit <= '0';
             num_clks            := num_clks + 1;
@@ -481,6 +485,24 @@ begin
         else
           clock_cnt             := clock_cnt + 1;
         end if; 
+
+      when tm_recov => 
+        if count_tm = 1500 then
+          count_tm            := 0;
+          endat_emulate_state <= tr_recov;
+        else
+          count_tm            := count_tm + 1;
+          endat_data_i        <= '1';
+        end if;
+
+      when tr_recov => 
+        if count_tr = 2 then
+          count_tr            := 0;
+          endat_emulate_state <= load_params;
+        else
+          count_tr            := count_tr + 1;
+          endat_data_i        <= '0';
+        end if;
 
 -------------------------------------------------
 ---------------- Mode State ---------------------
