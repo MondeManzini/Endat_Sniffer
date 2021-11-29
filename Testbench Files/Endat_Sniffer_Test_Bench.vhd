@@ -206,7 +206,7 @@ type endat_emulate_states is (load_params, Idle, op_state, t_low_state, t_high_s
 --type endat_emulate_states is (request_data, start_cond, test_select, send_mode, read_pos, 
 --                              send_data, read_data_1, read_data_2, read_data_3, read_data_4);
 
-type mode_states is (Idle, mode_gen, mode_write);
+type mode_states is (Idle, mode_gen, mode_write, mode_read, check_mode_res);
 type position_states is (Idle, pos_data_write, next_pos_bit);
 type add_data_1_states is (Idle, add_data_1_write, add_data_1_gen, add_data_1_read, check_data_1_res);
 type add_data_2_states is (Idle, add_data_2_write, add_data_2_gen, add_data_2_read, check_data_2_res);
