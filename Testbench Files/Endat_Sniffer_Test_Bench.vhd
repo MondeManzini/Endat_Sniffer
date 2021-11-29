@@ -681,36 +681,45 @@ begin
           end if;
     end case; -- End mode states
 
--------------------------------------------------
--------------- Position State -------------------
--------------------------------------------------
-    case position_state is
+    -------------------------------------------------
+    -------------- Position State -------------------
+    -------------------------------------------------
+    case pos_state is
       when Idle =>
         if pos_enable = '1' then
-          position_state  <= pos_data_write; 
+          pos_state  <= pos_gen; 
         end if;
 
-      when pos_data_write =>
-        pos_enable <= '0';
-        if pos_cycle_count < pos_div_load then
-          endat_data_i    <= pos_data_i(pos_cycle_count);
-          position_state  <= next_pos_bit;
-          pos_done_bit    <= '1';
-        elsif pos_cycle_count = (pos_div_load + 1) then
-          pos_done_bit    <= '1';
-          position_state  <= Idle;
-          pos_cycle_count := 0;
-          endat_data_i    <= '1';
-        --else
-        --  position_state <= next_pos_bit;
+      when pos_gen =>
+        pos_enable      <= '0';
+        pos_state       <= pos_write;
+        pos_cycle_count := pos_cycle_count - 1;
+
+      when pos_write =>
+        endat_data_i  <= pos_data_i(pos_cycle_count);  -- LSB first (0)                     
+        pos_state     <= pos_read;
+
+      when pos_read =>
+        pos_test_data(pos_cycle_count) <= endat_data_i;
+        if pos_cycle_count = 0 then
+          pos_state <= check_pos_res;
+        else
+          pos_done_bit   <= '1';
+          pos_state      <= Idle;
         end if;
 
-      when next_pos_bit =>
-        pos_cycle_count := pos_cycle_count + 1;
-        position_state  <= Idle;
-
+      when check_pos_res =>
+        if pos_test_data = pos_data_i then
+          report "The position test Passed." severity note;
+          pos_done_bit   <= '1';
+          pos_state      <= Idle;
+        else
+          report "The position test Failed" severity note;
+          pos_done_bit   <= '1';
+          pos_state      <= Idle;
+        end if;
     end case; -- End position state
-
+    
     -------------------------------------------------
     -------------- Additional Data 1 State ----------
     -------------------------------------------------
