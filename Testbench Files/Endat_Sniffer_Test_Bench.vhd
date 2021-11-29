@@ -194,15 +194,16 @@ type endat_emulate_states is (load_params, Idle, op_state, t_low_state, t_high_s
 --type endat_emulate_states is (request_data, start_cond, test_select, send_mode, read_pos, 
 --                              send_data, read_data_1, read_data_2, read_data_3, read_data_4);
 
-type mode_states is (Idle, mode_gen, mode_write) 
-                            ;
-type position_states is (Idle, pos_data_write, next_pos_bit) 
-                            ;
+type mode_states is (Idle, mode_gen, mode_write);
+type position_states is (Idle, pos_data_write, next_pos_bit);
+type add_data_1_states is (Idle, pos_data_write, next_pos_bit);
+
 signal endat_emulate_state           : endat_emulate_states;
 -- signal transceiver_state             : transceiver_states;
 -- signal clock_gen_state               : clock_gen_states;
 signal mode_state                    : mode_states;  
 signal position_state                : position_states;  
+signal add_data_1_state                : add_data_1_states;
 
 signal  sClok,snrst,sStrobe,PWM_sStrobe,newClk,Clk : std_logic := '0';
 signal  stx_data,srx_data : std_logic_vector(3 downto 0) := "0000";
@@ -647,7 +648,7 @@ begin
     end case; -- End position state
 
     -------------------------------------------------
-    -------------- Position State -------------------
+    -------------- Additional Data 1 State -------------------
     -------------------------------------------------
 
     --      when add_data_1_gen =>
@@ -662,7 +663,7 @@ begin
             --  endat_data_i      <= add_data_1_i(data_cycle_count);
             --  if endat_clk_i = '1' and clock_latch = '1' then
             --    data_cycle_count   := data_cycle_count + 1;
-            --    transceiver_state <= add_data_1_gen;
+            --    add_data_1_state <= add_data_1_gen;
             --  end if;
             --elsif data_cycle_count = 29 then
             --  if endat_clk_i = '1' and clock_latch = '1' then
