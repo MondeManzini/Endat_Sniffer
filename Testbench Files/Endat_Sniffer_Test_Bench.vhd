@@ -268,6 +268,8 @@ variable add_data_2_div_load  : integer range 0 to 50;
 variable num_clks             : integer range 0 to 120;
 variable count_tm             : integer range 0 to 1500;
 variable count_tr             : integer range 0 to 25;
+variable var_tm               : integer range 0 to 200;
+variable tm_cnt               : integer range 0 to 5;
 
 begin
   if RST_I_i = '0' then
@@ -288,6 +290,8 @@ begin
     num_clks            := 0;
     count_tm            := 0;
     count_tr            := 0; 
+    var_tm              := 0;
+    tm_cnt              := 0;
     num_clks_latch      <= 0;
     clock_latch         <= '0';
     stop_clock          <= '0';
@@ -342,7 +346,7 @@ begin
         mod_test_data     <= b"000000";
         pos_test_data     <= X"00000000";
         --------- TX Generator -----------
-        if Request_Data_cnt = 6500 then  -- 100 ms Retrieve 0 for 5000_000
+        if Request_Data_cnt = 650 then  -- 100 ms Retrieve 0 for 5000_000
           Request_Data_cnt  := 0;
           endat_tx_i        <= '1';     
         else
@@ -352,8 +356,31 @@ begin
         --------- End of TX Generator -----------
 
         if endat_tx_i = '1' then                 
+          tm_cnt  := tm_cnt + 1;
           endat_emulate_state <= t_low_state;
         end if;     
+
+        if tm_cnt = 4 then
+          tm_cnt := 0;
+        --else
+          --endat_emulate_state <= t_low_state;
+        end if;
+
+        -- Test from different t_m times
+        case tm_cnt is
+          when 1 =>
+            var_tm := 62;
+
+          when 2 =>
+            var_tm := 125;
+
+          when 3 =>
+            var_tm := 187;
+
+          when others =>
+            var_tm := 0;
+
+        end case;
 
       when t_low_state =>
         if clock_cnt = clk_div_load then         
@@ -447,7 +474,7 @@ begin
         end if; 
 
       when tm_recov => 
-        if count_tm = 1500 then
+        if count_tm = var_tm then
           count_tm            := 0;
           endat_emulate_state <= tr_recov;
         else
