@@ -642,9 +642,9 @@ begin
 
     end case;         -- End Endat case
 
--------------------------------------------------
----------------- Mode State ---------------------
--------------------------------------------------
+    -------------------------------------------------
+    ---------------- Mode State ---------------------
+    -------------------------------------------------
     case mode_state is
       when Idle =>
         if mode_enable = '1' then
@@ -652,20 +652,33 @@ begin
         end if;
 
       when mode_gen =>
-        mode_enable       <= '0';
-        mode_state        <= mode_write;
-        mode_cycle_count  := mode_cycle_count - 1;
+        mode_enable                     <= '0';
+        mode_state                      <= mode_write;
+        mode_cycle_count                := mode_cycle_count - 1;
 
       when mode_write =>
-        if mode_cycle_count > 0 then
-          endat_data_i  <= mode_data_i(mode_cycle_count);  -- LSB first (0)
-          mode_done_bit      <= '1';
-          mode_state    <= Idle;
-        elsif mode_cycle_count = 0 and (endat_mode_out_i > x"00" & '0') then
-          endat_data_i  <= '0';
-          mode_done_bit <= '1';
-          mode_state    <= Idle;
+        endat_data_i    <= mode_data_i(mode_cycle_count);  -- LSB first (0)                     
+        mode_state      <= mode_read;
+
+      when mode_read =>
+        mod_test_data(mode_cycle_count) <= endat_data_i;
+        if mode_cycle_count = 0 then
+          mode_state <= check_mode_res;
+        else
+          mode_done_bit   <= '1';
+          mode_state      <= Idle;
         end if;
+
+      when check_mode_res =>
+          if mod_test_data = mode_data_i then
+            report "The mode test Passed." severity note;
+            mode_done_bit   <= '1';
+            mode_state      <= Idle;
+          else
+            report "The mode test Failed" severity note;
+            mode_done_bit   <= '1';
+            mode_state      <= Idle;
+          end if;
     end case; -- End mode states
 
 -------------------------------------------------
