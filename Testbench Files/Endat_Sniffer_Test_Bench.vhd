@@ -435,6 +435,7 @@ begin
     clock_latch         <= '0';
     stop_clock          <= '0';
     mode_enable         <= '0';
+    dummy_enable        <= '0';
     pos_enable          <= '0';
     pos_done_bit        <= '0';
     mode_done_bit       <= '0';
