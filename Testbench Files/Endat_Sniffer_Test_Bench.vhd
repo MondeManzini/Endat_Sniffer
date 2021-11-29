@@ -150,7 +150,7 @@ signal Version_EndatSniffer             : std_logic_vector(7 downto 0);
 signal EndatSniffer_Version_Request_i   : std_logic;
 signal EndatSniffer_Version_Load_i      : std_logic;
 signal Endat_Request_i                  : std_logic;
-signal mode_data_i                      : std_logic_vector(8 downto 0); 
+signal mode_data_i                      : std_logic_vector(5 downto 0); 
 signal pos_data_i                       : std_logic_vector(31 downto 0); 
 signal add_data_1_i                     : std_logic_vector(31 downto 0);
 signal add_data_2_i                     : std_logic_vector(31 downto 0);        
@@ -166,6 +166,14 @@ signal add_data_1_enable                : std_logic;
 signal add_data_1_done_bit              : std_logic;
 signal add_data_2_enable                : std_logic;
 signal add_data_2_done_bit              : std_logic;
+signal crc_enable                       : std_logic;
+signal dummy_enable                     : std_logic;
+signal end_message                      : std_logic;
+signal end_mode                         : std_logic;
+signal add_test_data                    : std_logic_vector(31 downto 0);
+signal mod_test_data                    : std_logic_vector(5 downto 0);
+signal pos_test_data                    : std_logic_vector(31 downto 0);
+
 ----------------------------------------------------------------------
 -- Baud Rate for Mux Signals and Component
 ----------------------------------------------------------------------
