@@ -389,6 +389,14 @@ variable clk_div_load_cnt   : integer range 0 to 50;
 variable clk_div_load       : integer range 0 to 50;
 variable pos_div_load       : integer range 0 to 50;
 variable num_clks           : integer range 0 to 50;
+variable data_1_cycle_count   : integer range 0 to 33;
+variable data_2_cycle_count   : integer range 0 to 33;
+variable add_data_1_div_load  : integer range 0 to 50;
+variable add_data_2_div_load  : integer range 0 to 50;
+variable count_tm             : integer range 0 to 1500;
+variable count_tr             : integer range 0 to 25;
+variable var_tm               : integer range 0 to 200;
+variable tm_cnt               : integer range 0 to 5;
 
 begin
   if RST_I_i = '0' then
