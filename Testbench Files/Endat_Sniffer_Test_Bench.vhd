@@ -464,6 +464,8 @@ begin
         endat_emulate_state <= Idle;            
         
       when Idle => 
+        data_1_cycle_count  := add_data_1_div_load;
+        data_2_cycle_count  := add_data_2_div_load;
         clock_cnt         := 0;
         pos_cycle_count   := pos_div_load;
         clock_latch       <= '0';
