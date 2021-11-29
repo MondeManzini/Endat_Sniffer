@@ -162,6 +162,10 @@ signal endat_tx_i                       : std_logic;
 signal pos_enable                       : std_logic;
 signal mode_done_bit                    : std_logic;
 signal pos_done_bit                     : std_logic;
+signal add_data_1_enable                : std_logic;
+signal add_data_1_done_bit              : std_logic;
+signal add_data_2_enable                : std_logic;
+signal add_data_2_done_bit              : std_logic;
 ----------------------------------------------------------------------
 -- Baud Rate for Mux Signals and Component
 ----------------------------------------------------------------------
