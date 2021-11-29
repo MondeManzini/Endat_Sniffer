@@ -196,7 +196,8 @@ type endat_emulate_states is (load_params, Idle, op_state, t_low_state, t_high_s
 
 type mode_states is (Idle, mode_gen, mode_write);
 type position_states is (Idle, pos_data_write, next_pos_bit);
-type add_data_1_states is (Idle, pos_data_write, next_pos_bit);
+type add_data_1_states is (Idle, add_data_1_write, add_data_1_gen, add_data_1_read, check_data_1_res);
+type add_data_2_states is (Idle, add_data_2_write, add_data_2_gen, add_data_2_read, check_data_2_res);
 
 signal endat_emulate_state           : endat_emulate_states;
 -- signal transceiver_state             : transceiver_states;
@@ -204,6 +205,7 @@ signal endat_emulate_state           : endat_emulate_states;
 signal mode_state                    : mode_states;  
 signal position_state                : position_states;  
 signal add_data_1_state                : add_data_1_states;
+signal add_data_2_state                : add_data_2_states;
 
 signal  sClok,snrst,sStrobe,PWM_sStrobe,newClk,Clk : std_logic := '0';
 signal  stx_data,srx_data : std_logic_vector(3 downto 0) := "0000";
