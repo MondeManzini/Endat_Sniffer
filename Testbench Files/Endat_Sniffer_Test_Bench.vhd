@@ -425,6 +425,10 @@ begin
         clk_div_load        := 13;              -- 12.5 counts
         mode_cycle_count    := 6;               -- 6 Mode Bits
         pos_div_load        := 32;              -- Position Number of Bits - 28 Bits for RCN 2510 Encoder
+        add_data_1_i        <= x"FE1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
+        add_data_2_i        <= x"7E1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
+        add_data_1_div_load := 30;              -- Position Number of Bits
+        add_data_2_div_load := 30;              -- Position Number of Bits
         endat_emulate_state <= Idle;            
         
       when Idle => 
