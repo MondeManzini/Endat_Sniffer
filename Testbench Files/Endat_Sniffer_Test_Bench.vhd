@@ -207,17 +207,17 @@ type endat_emulate_states is (load_params, Idle, op_state, t_low_state, t_high_s
 --                              send_data, read_data_1, read_data_2, read_data_3, read_data_4);
 
 type mode_states is (Idle, mode_gen, mode_write, mode_read, check_mode_res);
-type position_states is (Idle, pos_data_write, next_pos_bit);
+type pos_states is (Idle, pos_gen, pos_write, pos_read, check_pos_res);
 type add_data_1_states is (Idle, add_data_1_write, add_data_1_gen, add_data_1_read, check_data_1_res);
 type add_data_2_states is (Idle, add_data_2_write, add_data_2_gen, add_data_2_read, check_data_2_res);
 
-signal endat_emulate_state           : endat_emulate_states;
+signal endat_emulate_state              : endat_emulate_states;
 -- signal transceiver_state             : transceiver_states;
 -- signal clock_gen_state               : clock_gen_states;
-signal mode_state                    : mode_states;  
-signal position_state                : position_states;  
-signal add_data_1_state                : add_data_1_states;
-signal add_data_2_state                : add_data_2_states;
+signal mode_state                       : mode_states;  
+signal pos_state                        : pos_states;  
+signal add_data_1_state                 : add_data_1_states;
+signal add_data_2_state                 : add_data_2_states;
 
 signal  sClok,snrst,sStrobe,PWM_sStrobe,newClk,Clk : std_logic := '0';
 signal  stx_data,srx_data : std_logic_vector(3 downto 0) := "0000";
@@ -396,7 +396,7 @@ variable clk_pls_trac       : integer range 0 to 120;
 variable clk_div_load_cnt   : integer range 0 to 50;
 variable clk_div_load       : integer range 0 to 50;
 variable pos_div_load       : integer range 0 to 50;
-variable num_clks           : integer range 0 to 50;
+variable num_clks           : integer range 0 to 120;
 variable data_1_cycle_count   : integer range 0 to 33;
 variable data_2_cycle_count   : integer range 0 to 33;
 variable add_data_1_div_load  : integer range 0 to 50;
