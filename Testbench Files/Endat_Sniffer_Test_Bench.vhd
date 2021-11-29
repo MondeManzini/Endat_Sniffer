@@ -193,8 +193,8 @@ signal data2store                   : memory_array;
 ----------------------------------------
 -- General Signals
 -------------------------------------------------------------------------------
-type endat_emulate_states is (load_params, Idle, op_state, t_low_state, t_high_state) 
-                              ;
+type endat_emulate_states is (load_params, Idle, op_state, t_low_state, t_high_state, tm_recov, 
+                              tr_recov);
 --type endat_emulate_states is (request_data, start_cond, test_select, send_mode, read_pos, 
 --                              send_data, read_data_1, read_data_2, read_data_3, read_data_4);
 
