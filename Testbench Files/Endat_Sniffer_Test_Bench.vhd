@@ -526,12 +526,27 @@ begin
           dummy_enable        <= '1';  
           endat_data_i        <= '0';
           endat_emulate_state <= t_high_state;
-        elsif num_clks = 53 then                   -- End of message                
+          elsif num_clks > 52 and num_clks < 78 then  -- Additional Data 1 operation
+          add_data_1_enable   <= '1';
+          endat_emulate_state <= t_high_state;
+        elsif num_clks > 77 and num_clks < 83 then  -- Last 5 CRC Additional Data 1 bits
+          add_data_1_enable          <= '1';
+          endat_emulate_state <= t_high_state;
+          elsif num_clks = 83 then                   -- 1 dummy bit for additional data 1
+          dummy_enable        <= '1'; 
+          endat_emulate_state <= t_high_state; 
+        elsif num_clks > 83 and num_clks < 110 then  -- Additional Data 2 operation
+          add_data_2_enable   <= '1';
+          endat_emulate_state <= t_high_state;
+        elsif num_clks > 109 and num_clks < 114 then  -- Last 5 CRC Additional Data 2 bits
+          add_data_2_enable          <= '1';
+          endat_emulate_state <= t_high_state;
+        elsif num_clks = 114 then                   -- End of message                
           end_message         <= '1';  
           endat_emulate_state <= t_high_state;
         else
           endat_emulate_state <= t_high_state;
-        end if;
+        end if;      
 
       when t_high_state =>
         if clock_cnt = clk_div_load then         
