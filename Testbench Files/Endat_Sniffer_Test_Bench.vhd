@@ -648,68 +648,82 @@ begin
     end case; -- End position state
 
     -------------------------------------------------
-    -------------- Additional Data 1 State -------------------
+    -------------- Additional Data 1 State ----------
     -------------------------------------------------
+    case add_data_1_state is
+      when Idle =>
+        if add_data_1_enable = '1' then
+          add_data_1_state  <= add_data_1_gen; 
+        end if;
 
-    --      when add_data_1_gen =>
-            --if endat_clk_i = '0' then
-            --  clock_latch         <= '1';
-            --  add_data_1_i        <= x"7E1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
-            --  transceiver_state   <= add_data_1_write;
-            --end if;
+      when add_data_1_gen =>
+        add_data_1_enable <= '0';
+        add_data_1_state  <= add_data_1_write;
+        data_1_cycle_count  := data_1_cycle_count - 1;
 
-    --      when add_data_1_write =>
-            --if data_cycle_count < 29 then
-            --  endat_data_i      <= add_data_1_i(data_cycle_count);
-            --  if endat_clk_i = '1' and clock_latch = '1' then
-            --    data_cycle_count   := data_cycle_count + 1;
-            --    add_data_1_state <= add_data_1_gen;
-            --  end if;
-            --elsif data_cycle_count = 29 then
-            --  if endat_clk_i = '1' and clock_latch = '1' then
-            --    endat_data_i      <= '0';
-            --    data_cycle_count    := 0;
-            --    transceiver_state   <= add_data_2_gen;
-            --  end if;
-            --end if;
+    when add_data_1_write =>
+      endat_data_i      <= add_data_1_i(data_1_cycle_count);  -- LSB first (0)                     
+      add_data_1_state  <= add_data_1_read;
 
-    --      when add_data_2_gen =>
-            --if endat_clk_i = '0' then
-            --  clock_latch         <= '1';
-            --  add_data_2_i        <= x"7E1FC3F8";     -- Additional Data 2 Command 7E1FC3F8
-            --  transceiver_state   <= add_data_2_write;
-            --end if;
+    when add_data_1_read =>
+      add_test_data(data_1_cycle_count) <= endat_data_i;
+      if data_1_cycle_count = 0 then
+        add_data_1_state  <= check_data_1_res;
+      else
+        add_data_1_done_bit <= '1';
+        add_data_1_state    <= Idle;
+      end if;
 
-    --      when add_data_2_write =>
-            --if data_cycle_count < 32 then
-            --  endat_data_i      <= add_data_2_i(data_cycle_count);
-            --  if endat_clk_i = '1' and clock_latch = '1' then
-            --    data_cycle_count    := data_cycle_count + 1;
-            --    transceiver_state   <= add_data_2_gen;
-            --  end if;
-            --elsif data_cycle_count = 32 then
-            --  if endat_clk_i = '1' and clock_latch = '1' then
-            --    data_cycle_count    := 0;
-            --    transceiver_state   <= Idle;
-            --    endat_emulate_state <= end_message;
-            --  end if;
-            --end if;
+    when check_data_1_res =>
+      if add_test_data = add_data_1_i then
+        report "The Additional Data 1 test Passed." severity note;
+        add_data_1_done_bit   <= '1';
+        add_data_1_state      <= Idle;
+      else
+        report "The Additional Data 1 test Failed" severity note;
+        add_data_1_done_bit   <= '1';
+        add_data_1_state      <= Idle;
+      end if;
+    end case;               -- End Additional Data 1 
 
-    --      when others =>
+    -------------------------------------------------
+    -------------- Additional Data 2 State ----------
+    -------------------------------------------------
+    case add_data_2_state is
+      when Idle =>
+        if add_data_2_enable = '1' then
+          add_data_2_state  <= add_data_2_gen; 
+        end if;
 
-   --     end case;
+      when add_data_2_gen =>
+        add_data_2_enable   <= '0';
+        add_data_2_state    <= add_data_2_write;
+        data_2_cycle_count  := data_2_cycle_count - 1;
 
-      --when end_message =>
-        --if endat_data_ready_i = '1' then
-        --  endat_data_i  <= '1'; 
-        --end if;
-        --if endat_Position_out_i = pos_data_i then
-          --if endat_clk_i = '1' and endat_data_i = '1' then
-            --endat_emulate_state <= Idle;
-            --transceiver_state   <= Idle;
-            --stop_clock          <= '0';
-          --end if;
-       -- end if;
+    when add_data_2_write =>
+      endat_data_i      <= add_data_2_i(data_2_cycle_count);  -- LSB first (0)                     
+      add_data_2_state  <= add_data_2_read;
+
+    when add_data_2_read =>
+        add_test_data(data_2_cycle_count) <= endat_data_i;
+      if data_2_cycle_count = 0 then
+        add_data_2_state    <= check_data_2_res;
+      else
+        add_data_2_done_bit <= '1';
+        add_data_2_state    <= Idle;
+      end if;
+
+    when check_data_2_res =>
+      if add_test_data = add_data_2_i then
+        report "The Additional Data 1 test Passed." severity note;
+        add_data_2_done_bit   <= '1';
+        add_data_2_state      <= Idle;
+      else
+        report "The Additional Data 1 test Failed" severity note;
+        add_data_2_done_bit   <= '1';
+        add_data_2_state      <= Idle;
+      end if;
+    end case;         -- End Additional Data 2 case
  
   end if;
   end process Endat_test;
