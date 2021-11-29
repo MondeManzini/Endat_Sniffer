@@ -408,7 +408,16 @@ begin
     mode_cycle_count    := 8;
     pos_cycle_count     := 0;
     data_cycle_count    := 0;
+    data_1_cycle_count  := 0;
+    data_2_cycle_count  := 0;
     add_data_cnt        := 0;
+    count_tm            := 0;
+    count_tr            := 0; 
+    add_data_1_enable       <= '0';
+    add_data_1_done_bit     <= '0';
+    add_data_2_enable       <= '0';
+    add_data_2_done_bit     <= '0';
+    add_test_data           <= (OTHERS => '0');
     clk_div_load_cnt    := 0;
     clk_div_load        := 0;
     pos_div_load        := 0;
