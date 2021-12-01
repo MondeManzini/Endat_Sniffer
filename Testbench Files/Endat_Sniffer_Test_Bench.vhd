@@ -413,7 +413,7 @@ begin
     endat_data_i        <= '0';
     Request_Data_cnt    := 0;
     clock_cnt           := 0;
-    mode_cycle_count    := 8;
+    mode_cycle_count    := 0;
     pos_cycle_count     := 0;
     data_cycle_count    := 0;
     data_1_cycle_count  := 0;
@@ -426,6 +426,8 @@ begin
     add_data_2_enable       <= '0';
     add_data_2_done_bit     <= '0';
     add_test_data           <= (OTHERS => '0');
+    add_data_1_i        <= (OTHERS => '0');
+    add_data_2_i        <= (OTHERS => '0');
     clk_div_load_cnt    := 0;
     clk_div_load        := 0;
     pos_div_load        := 0;
@@ -471,8 +473,8 @@ begin
         clock_latch       <= '0';
         endat_data_i      <= '1'; 
         endat_clk_i       <= '1'; 
-        count_tm            := 0;
-        count_tr            := 0; 
+        count_tm          := 0;
+        count_tr          := 0; 
         mode_done_bit     <= '0';
         end_message       <= '0';
         crc_enable        <= '0';
@@ -480,6 +482,7 @@ begin
         pos_enable        <= '0';
         mod_test_data     <= b"000000";
         pos_test_data     <= X"00000000";
+        add_test_data     <= x"00000000";
         --------- TX Generator -----------
         if Request_Data_cnt = 650 then  -- 100 ms Retrieve 0 for 5000_000
           Request_Data_cnt  := 0;
@@ -497,8 +500,6 @@ begin
 
         if tm_cnt = 4 then
           tm_cnt := 0;
-        --else
-          --endat_emulate_state <= t_low_state;
         end if;
 
         -- Test from different t_m times
@@ -576,11 +577,7 @@ begin
           dummy_enable        <= '1';  
           endat_data_i        <= '0';
           endat_emulate_state <= t_high_state;       
-        --elsif num_clks = 83 then                   -- 1 dummy bit for additional data 1
-        --  dummy_enable        <= '1'; 
-        --  endat_emulate_state <= t_high_state; 
-        
-        elsif num_clks = 82 then                   -- End of message                
+        elsif num_clks = 118 then                   -- End of message                
           end_message         <= '1';  
           endat_emulate_state <= t_high_state;
         else
@@ -613,28 +610,31 @@ begin
             crc_enable          <= '1';  
             endat_data_i        <= '1';
             endat_emulate_state <= t_low_state;       
-          elsif num_clks = 52 then              
-            -- dummy_enable        <= '1';      
+          elsif num_clks = 51 then              
             add_data_1_enable   <= '1'; 
-            --endat_data_i        <= '1';                -- Additional Data 1 Start Bit  
             endat_emulate_state <= t_low_state;
-          elsif num_clks > 53 and num_clks < 77 then  -- Additional Data 1 operation - 23 bits + 1 bit above
+          elsif num_clks > 51 and num_clks < 78 then  -- Additional Data 1 operation - 24 bits + 1 bit above
             add_data_1_enable   <= '1';
             endat_emulate_state <= t_low_state;
-          elsif num_clks > 76 and num_clks < 82 then  -- Last 5 CRC Additional Data 1 bits
+          elsif num_clks > 77 and num_clks < 84 then  -- Last 5 CRC Additional Data 1 bits
             add_data_1_enable   <= '1';
             endat_emulate_state <= t_low_state;
-          --elsif num_clks = 85 then                    
-          --  add_data_2_enable   <= '1'; 
-          --  --endat_data_i        <= '1';                -- Additional Data 2 Start Bit  
-          --  add_test_data       <= x"00000000";
-          --  endat_emulate_state <= t_low_state;
-          --elsif num_clks > 85 and num_clks < 112 then  -- Additional Data 2 operation
-          --  add_data_2_enable   <= '1';
-          --  endat_emulate_state <= t_low_state;
-          --elsif num_clks > 111 and num_clks < 116 then  -- Last 5 CRC Additional Data 2 bits
-          --  add_data_2_enable          <= '1';
-          --  endat_emulate_state <= t_low_state;
+          elsif num_clks = 84 then                    -- Additional Data 1 Dummy
+            add_data_1_enable   <= '1';
+            endat_emulate_state <= t_low_state;
+          elsif num_clks = 85 then                    
+            add_data_2_enable   <= '1'; 
+           -- add_test_data       <= x"00000000";
+            endat_emulate_state <= t_low_state;
+          elsif num_clks > 85 and num_clks < 112 then  -- Additional Data 2 operation - 24 bits + 1 bit above
+            add_data_2_enable   <= '1';
+            endat_emulate_state <= t_low_state;
+          elsif num_clks > 111 and num_clks < 117 then  -- Last 5 CRC Additional Data 2 bits
+            add_data_2_enable   <= '1';
+            endat_emulate_state <= t_low_state;
+          elsif num_clks = 117 then                     -- Additional Data 2 Dummy
+            add_data_2_enable   <= '1';
+            endat_emulate_state <= t_low_state;
           elsif end_message = '1' then 
             end_message         <= '0';
             num_clks            := 0;
@@ -779,12 +779,14 @@ begin
     when check_data_1_res =>
       if add_test_data = add_data_1_i then
         report "The Additional Data 1 test Passed." severity note;
-        add_data_1_done_bit   <= '1';
-        add_data_1_state      <= Idle;
+        add_data_1_done_bit <= '1';
+        add_data_1_state    <= Idle;
+        add_test_data       <= x"00000000";
       else
         report "The Additional Data 1 test Failed" severity note;
-        add_data_1_done_bit   <= '1';
-        add_data_1_state      <= Idle;
+        add_data_1_done_bit <= '1';
+        add_data_1_state    <= Idle;
+        add_test_data       <= x"00000000";
       end if;
     end case;               -- End Additional Data 1 
 
