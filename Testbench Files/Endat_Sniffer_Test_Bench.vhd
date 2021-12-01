@@ -459,8 +459,8 @@ begin
         pos_div_load        := 32;              -- Position Number of Bits - 28 Bits for RCN 2510 Encoder
         add_data_1_i        <= x"FE1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
         add_data_2_i        <= x"7E1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
-        add_data_1_div_load := 31;              -- Position Number of Bits
-        add_data_2_div_load := 31;              -- Position Number of Bits
+        add_data_1_div_load := 32;              -- Position Number of Bits
+        add_data_2_div_load := 32;              -- Position Number of Bits
         endat_emulate_state <= Idle;            
         
       when Idle => 
@@ -580,7 +580,7 @@ begin
         --  dummy_enable        <= '1'; 
         --  endat_emulate_state <= t_high_state; 
         
-        elsif num_clks = 116 then                   -- End of message                
+        elsif num_clks = 82 then                   -- End of message                
           end_message         <= '1';  
           endat_emulate_state <= t_high_state;
         else
@@ -613,28 +613,28 @@ begin
             crc_enable          <= '1';  
             endat_data_i        <= '1';
             endat_emulate_state <= t_low_state;       
-          elsif num_clks = 53 then              
-            dummy_enable        <= '1';      
-            --add_data_1_enable   <= '1'; 
-            endat_data_i        <= '1';                -- Additional Data 1 Start Bit  
+          elsif num_clks = 52 then              
+            -- dummy_enable        <= '1';      
+            add_data_1_enable   <= '1'; 
+            --endat_data_i        <= '1';                -- Additional Data 1 Start Bit  
             endat_emulate_state <= t_low_state;
-          elsif num_clks > 53 and num_clks < 80 then  -- Additional Data 1 operation
+          elsif num_clks > 53 and num_clks < 77 then  -- Additional Data 1 operation - 23 bits + 1 bit above
             add_data_1_enable   <= '1';
             endat_emulate_state <= t_low_state;
-          elsif num_clks > 79 and num_clks < 85 then  -- Last 5 CRC Additional Data 1 bits
+          elsif num_clks > 76 and num_clks < 82 then  -- Last 5 CRC Additional Data 1 bits
             add_data_1_enable   <= '1';
             endat_emulate_state <= t_low_state;
-          elsif num_clks = 85 then                    
-            add_data_2_enable   <= '1'; 
-            --endat_data_i        <= '1';                -- Additional Data 2 Start Bit  
-            add_test_data       <= x"00000000";
-            endat_emulate_state <= t_low_state;
-          elsif num_clks > 85 and num_clks < 112 then  -- Additional Data 2 operation
-            add_data_2_enable   <= '1';
-            endat_emulate_state <= t_low_state;
-          elsif num_clks > 111 and num_clks < 116 then  -- Last 5 CRC Additional Data 2 bits
-            add_data_2_enable          <= '1';
-            endat_emulate_state <= t_low_state;
+          --elsif num_clks = 85 then                    
+          --  add_data_2_enable   <= '1'; 
+          --  --endat_data_i        <= '1';                -- Additional Data 2 Start Bit  
+          --  add_test_data       <= x"00000000";
+          --  endat_emulate_state <= t_low_state;
+          --elsif num_clks > 85 and num_clks < 112 then  -- Additional Data 2 operation
+          --  add_data_2_enable   <= '1';
+          --  endat_emulate_state <= t_low_state;
+          --elsif num_clks > 111 and num_clks < 116 then  -- Last 5 CRC Additional Data 2 bits
+          --  add_data_2_enable          <= '1';
+          --  endat_emulate_state <= t_low_state;
           elsif end_message = '1' then 
             end_message         <= '0';
             num_clks            := 0;
