@@ -459,8 +459,8 @@ begin
         pos_div_load        := 32;              -- Position Number of Bits - 28 Bits for RCN 2510 Encoder
         add_data_1_i        <= x"FE1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
         add_data_2_i        <= x"7E1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
-        add_data_1_div_load := 30;              -- Position Number of Bits
-        add_data_2_div_load := 30;              -- Position Number of Bits
+        add_data_1_div_load := 31;              -- Position Number of Bits
+        add_data_2_div_load := 31;              -- Position Number of Bits
         endat_emulate_state <= Idle;            
         
       when Idle => 
@@ -534,6 +534,18 @@ begin
               crc_enable          <= '0';
               num_clks            := num_clks + 1;
               endat_emulate_state <= op_state;
+            elsif add_data_1_done_bit = '1' then
+              add_data_1_done_bit <= '0';
+              num_clks            := num_clks + 1;
+              endat_emulate_state <= op_state;
+            elsif add_data_2_done_bit = '1' then
+              add_data_2_done_bit <= '0';
+              num_clks            := num_clks + 1;
+              endat_emulate_state <= op_state;
+              elsif dummy_enable = '1' then               -- Last two mode dummy bits
+              dummy_enable        <= '0';  
+              num_clks            := num_clks + 1;
+              endat_emulate_state <= op_state;
             else
               endat_emulate_state <= op_state;
             end if;
@@ -563,23 +575,12 @@ begin
         elsif num_clks > 10 and num_clks < 16 then  -- Clock stretching 5 clocks
           dummy_enable        <= '1';  
           endat_data_i        <= '0';
-          endat_emulate_state <= t_high_state;
-          elsif num_clks > 52 and num_clks < 78 then  -- Additional Data 1 operation
-          add_data_1_enable   <= '1';
-          endat_emulate_state <= t_high_state;
-        elsif num_clks > 77 and num_clks < 83 then  -- Last 5 CRC Additional Data 1 bits
-          add_data_1_enable          <= '1';
-          endat_emulate_state <= t_high_state;
-          elsif num_clks = 83 then                   -- 1 dummy bit for additional data 1
-          dummy_enable        <= '1'; 
-          endat_emulate_state <= t_high_state; 
-        elsif num_clks > 83 and num_clks < 110 then  -- Additional Data 2 operation
-          add_data_2_enable   <= '1';
-          endat_emulate_state <= t_high_state;
-        elsif num_clks > 109 and num_clks < 114 then  -- Last 5 CRC Additional Data 2 bits
-          add_data_2_enable          <= '1';
-          endat_emulate_state <= t_high_state;
-        elsif num_clks = 114 then                   -- End of message                
+          endat_emulate_state <= t_high_state;       
+        --elsif num_clks = 83 then                   -- 1 dummy bit for additional data 1
+        --  dummy_enable        <= '1'; 
+        --  endat_emulate_state <= t_high_state; 
+        
+        elsif num_clks = 116 then                   -- End of message                
           end_message         <= '1';  
           endat_emulate_state <= t_high_state;
         else
@@ -611,7 +612,29 @@ begin
           elsif num_clks > 47 and num_clks < 53 then   -- Position 5 CRC Position bits
             crc_enable          <= '1';  
             endat_data_i        <= '1';
-            endat_emulate_state <= t_low_state;       -- 1 dummy clock bit before data 1
+            endat_emulate_state <= t_low_state;       
+          elsif num_clks = 53 then              
+            dummy_enable        <= '1';      
+            --add_data_1_enable   <= '1'; 
+            endat_data_i        <= '1';                -- Additional Data 1 Start Bit  
+            endat_emulate_state <= t_low_state;
+          elsif num_clks > 53 and num_clks < 80 then  -- Additional Data 1 operation
+            add_data_1_enable   <= '1';
+            endat_emulate_state <= t_low_state;
+          elsif num_clks > 79 and num_clks < 85 then  -- Last 5 CRC Additional Data 1 bits
+            add_data_1_enable   <= '1';
+            endat_emulate_state <= t_low_state;
+          elsif num_clks = 85 then                    
+            add_data_2_enable   <= '1'; 
+            --endat_data_i        <= '1';                -- Additional Data 2 Start Bit  
+            add_test_data       <= x"00000000";
+            endat_emulate_state <= t_low_state;
+          elsif num_clks > 85 and num_clks < 112 then  -- Additional Data 2 operation
+            add_data_2_enable   <= '1';
+            endat_emulate_state <= t_low_state;
+          elsif num_clks > 111 and num_clks < 116 then  -- Last 5 CRC Additional Data 2 bits
+            add_data_2_enable          <= '1';
+            endat_emulate_state <= t_low_state;
           elsif end_message = '1' then 
             end_message         <= '0';
             num_clks            := 0;
@@ -733,8 +756,12 @@ begin
 
       when add_data_1_gen =>
         add_data_1_enable <= '0';
-        add_data_1_state  <= add_data_1_write;
-        data_1_cycle_count  := data_1_cycle_count - 1;
+        if data_1_cycle_count > 0 then 
+          add_data_1_state    <= add_data_1_write;
+          data_1_cycle_count  := data_1_cycle_count - 1;
+        elsif data_1_cycle_count = 0 then
+          add_data_1_state    <= add_data_1_write;
+        end if;
 
     when add_data_1_write =>
       endat_data_i      <= add_data_1_i(data_1_cycle_count);  -- LSB first (0)                     
@@ -772,8 +799,12 @@ begin
 
       when add_data_2_gen =>
         add_data_2_enable   <= '0';
-        add_data_2_state    <= add_data_2_write;
-        data_2_cycle_count  := data_2_cycle_count - 1;
+        if data_2_cycle_count > 0 then 
+          add_data_2_state    <= add_data_2_write;
+          data_2_cycle_count  := data_2_cycle_count - 1;
+        elsif data_2_cycle_count = 0 then
+          add_data_2_state    <= add_data_2_write;
+        end if;
 
     when add_data_2_write =>
       endat_data_i      <= add_data_2_i(data_2_cycle_count);  -- LSB first (0)                     
