@@ -455,11 +455,11 @@ begin
     case endat_emulate_state is 
       when load_params =>
         mode_data_i         <= b"000111";       -- Mode 1 Command 07 000111
-        pos_data_i          <= x"89384756";     -- Position Command 7E1FC3F8
+        pos_data_i          <= x"89384757";     -- Position Command 7E1FC3F8
         clk_div_load        := 13;              -- 12.5 counts
         mode_cycle_count    := 6;               -- 6 Mode Bits
         pos_div_load        := 32;              -- Position Number of Bits - 28 Bits for RCN 2510 Encoder
-        add_data_1_i        <= x"FE1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
+        add_data_1_i        <= x"7E1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
         add_data_2_i        <= x"7E1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
         add_data_1_div_load := 32;              -- Position Number of Bits
         add_data_2_div_load := 32;              -- Position Number of Bits
@@ -609,7 +609,8 @@ begin
           elsif num_clks > 47 and num_clks < 53 then   -- Position 5 CRC Position bits
             crc_enable          <= '1';  
             endat_data_i        <= '1';
-            endat_emulate_state <= t_low_state;       
+            endat_emulate_state <= t_low_state;    
+             
           elsif num_clks = 51 then              
             add_data_1_enable   <= '1'; 
             endat_emulate_state <= t_low_state;
