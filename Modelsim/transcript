@@ -1,0 +1,792 @@
+# Compile of test_bench_T.vhd was successful.
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+vsim -gui work.endat_sniffer_test_bench
+# vsim -gui work.endat_sniffer_test_bench 
+# Start time: 07:44:03 on Nov 18,2021
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.txt_util(body)
+# Loading work.version_ascii
+# Loading modelsim_lib.util(body)
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+# Loading work.test_bench_t(archtest_bench_t)
+do C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Modelsim/Endat_Sniffer_Test_Bench_Datasheet_Version_Add_Data_1.do
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: User  Hostname: MMANZINI  ProcessID: 26380
+#           Attempting to use alternate WLF file "./wlftjh79nw".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftjh79nw
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Fatal: (vsim-3421) Value -1 is out of range 0 to 33.
+#    Time: 158930 ns  Iteration: 1  Process: /endat_sniffer_test_bench/Endat_test File: C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd Line: 534
+# Fatal error in Process Endat_test at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd line 534
+# 
+# HDL call sequence:
+# Stopped at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd 534 Process Endat_test
+# 
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 311070 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 330790 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 487510 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 507230 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 663950 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 683670 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 840390 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 860110 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 311070 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 330790 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 487510 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 507230 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 663950 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 683670 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 840390 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 860110 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Failed
+#    Time: 175810 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 311070 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 330790 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Failed
+#    Time: 352250 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 487510 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 507230 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Failed
+#    Time: 528690 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 663950 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 683670 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Failed
+#    Time: 705130 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 840390 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 860110 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Failed
+#    Time: 881570 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Failed
+#    Time: 175810 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Fatal: (vsim-3421) Value -1 is out of range 0 to 33.
+#    Time: 176330 ns  Iteration: 1  Process: /endat_sniffer_test_bench/Endat_test File: C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd Line: 534
+# Fatal error in Process Endat_test at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd line 534
+# 
+# HDL call sequence:
+# Stopped at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd 534 Process Endat_test
+# 
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 311070 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 330790 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 487510 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 507230 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 663950 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 683670 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 840390 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 860110 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Modelsim/Endat_Sniffer_Test_Bench_Datasheet_Version_Add_Data_1.do
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Failed
+#    Time: 176390 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 311650 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 331370 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Failed
+#    Time: 353410 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 488670 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 508390 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Failed
+#    Time: 530430 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 665690 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 685410 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Failed
+#    Time: 707450 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 842710 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 862430 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Failed
+#    Time: 884470 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 311650 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 331370 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 488670 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 508390 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 665690 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 685410 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 842710 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 862430 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+restart
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 311650 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 331370 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 488670 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 508390 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 665690 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 685410 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 842710 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 862430 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# Compile of Endat_Sniffer_Test_Bench.vhd failed with 11 errors.
+# Compile of Endat_Sniffer_Test_Bench.vhd failed with 1 errors.
+# Compile of Endat_Sniffer_Test_Bench.vhd failed with 1 errors.
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 177550 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Fatal: (vsim-3421) Value -1 is out of range 0 to 33.
+#    Time: 178070 ns  Iteration: 1  Process: /endat_sniffer_test_bench/Endat_test File: C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd Line: 550
+# Fatal error in Process Endat_test at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd line 550
+# 
+# HDL call sequence:
+# Stopped at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd 550 Process Endat_test
+# 
+# Compile of Endat_Sniffer_Test_Bench.vhd failed with 1 errors.
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Failed
+#    Time: 177550 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Fatal: (vsim-3421) Value -1 is out of range 0 to 33.
+#    Time: 178070 ns  Iteration: 1  Process: /endat_sniffer_test_bench/Endat_test File: C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd Line: 594
+# Fatal error in Process Endat_test at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd line 594
+# 
+# HDL call sequence:
+# Stopped at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd 594 Process Endat_test
+# 
+add wave -position insertpoint  \
+sim:/endat_sniffer_test_bench/add_data_2_i
+add wave -position insertpoint  \
+sim:/endat_sniffer_test_bench/add_data_1_enable \
+sim:/endat_sniffer_test_bench/add_data_2_enable
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Modelsim/Endat_Sniffer_Test_Bench_Datasheet_Version_Add_Data_1.do
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Failed
+#    Time: 177550 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Fatal: (vsim-3421) Value -1 is out of range 0 to 33.
+#    Time: 178070 ns  Iteration: 1  Process: /endat_sniffer_test_bench/Endat_test File: C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd Line: 594
+# Fatal error in Process Endat_test at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd line 594
+# 
+# HDL call sequence:
+# Stopped at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd 594 Process Endat_test
+# 
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Failed
+#    Time: 177550 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Fatal: (vsim-3421) Value -1 is out of range 0 to 33.
+#    Time: 178070 ns  Iteration: 1  Process: /endat_sniffer_test_bench/Endat_test File: C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd Line: 594
+# Fatal error in Process Endat_test at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd line 594
+# 
+# HDL call sequence:
+# Stopped at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd 594 Process Endat_test
+# 
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+# Warning in wave window restart: (vish-4014) No objects found matching '/endat_sniffer_test_bench/Endat_test/data_cycle_count'. 
+restart
+add wave -position insertpoint \
+/endat_sniffer_test_bench/Endat_test/data_1_cycle_count \
+/endat_sniffer_test_bench/Endat_test/data_2_cycle_count 
+restart
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Fatal: (vsim-3421) Value -1 is out of range 0 to 33.
+#    Time: 177490 ns  Iteration: 1  Process: /endat_sniffer_test_bench/Endat_test File: C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd Line: 595
+# Fatal error in Process Endat_test at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd line 595
+# 
+# HDL call sequence:
+# Stopped at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd 595 Process Endat_test
+# 
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Fatal: (vsim-3421) Value 111 is out of range 0 to 110.
+#    Time: 193970 ns  Iteration: 1  Process: /endat_sniffer_test_bench/Endat_test File: C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd Line: 456
+# Fatal error in Process Endat_test at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd line 456
+# 
+# HDL call sequence:
+# Stopped at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd 456 Process Endat_test
+# 
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 330210 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 349930 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 525790 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 545510 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 721370 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 741090 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 916950 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 936670 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 176970 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 330790 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 350510 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 373130 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 526950 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 546670 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 569290 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 723110 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 742830 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 765450 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 919270 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 938990 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 961610 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 176970 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 196110 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 331370 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 351090 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 373710 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 392850 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 528110 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 547830 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 570450 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 589590 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 724850 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 744570 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 767190 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 786330 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 921590 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 941310 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 963930 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 983070 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 176970 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 196110 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Fatal: (vsim-3421) Value -1 is out of range 0 to 33.
+#    Time: 196630 ns  Iteration: 1  Process: /endat_sniffer_test_bench/Endat_test File: C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd Line: 596
+# Fatal error in Process Endat_test at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd line 596
+# 
+# HDL call sequence:
+# Stopped at C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Testbench Files/Endat_Sniffer_Test_Bench.vhd 596 Process Endat_test
+# 
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 176970 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 196110 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 331370 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 351090 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 373710 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 392850 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 528110 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 547830 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 570450 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 589590 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 724850 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 744570 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 767190 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 786330 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 921590 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 941310 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 963930 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 983070 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Modelsim/Endat_Sniffer_Test_Bench_Datasheet_Version_Add_Data_2.do
+add wave -position insertpoint  \
+sim:/endat_sniffer_test_bench/add_data_1_state \
+sim:/endat_sniffer_test_bench/add_data_2_state
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Modelsim/Endat_Sniffer_Test_Bench_Datasheet_Version_Add_Data_2.do
+restart
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 176970 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 196110 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 331370 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 351090 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 373710 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 392850 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 528110 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 547830 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 570450 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 589590 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 724850 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 744570 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 767190 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 786330 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 921590 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 941310 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 963930 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 983070 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# Compile of Endat_Sniffer_Test_Bench.vhd failed with 6 errors.
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+vsim -gui quitsim
+# End time: 12:21:47 on Nov 18,2021, Elapsed time: 4:37:44
+# Errors: 0, Warnings: 1
+# vsim -gui quitsim 
+# Start time: 12:21:48 on Nov 18,2021
+# ** Error: (vsim-3170) Could not find 'quitsim'.
+#         Searched libraries:
+#             C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Modelsim/work
+# Error loading design
+# End time: 12:21:50 on Nov 18,2021, Elapsed time: 0:00:02
+# Errors: 1, Warnings: 1
+vsim -gui work.endat_sniffer_test_bench
+# vsim -gui work.endat_sniffer_test_bench 
+# Start time: 12:22:13 on Nov 18,2021
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.txt_util(body)
+# Loading work.version_ascii
+# Loading modelsim_lib.util(body)
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+# Loading work.test_bench_t(archtest_bench_t)
+do C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/Modelsim/Endat_Sniffer_Test_Bench_Datasheet_Version_Add_Data_2.do
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: User  Hostname: MMANZINI  ProcessID: 26380
+#           Attempting to use alternate WLF file "./wlft2998g6".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft2998g6
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of Endat_Sniffer_Test_Bench.vhd failed with 58 errors.
+# Compile of Endat_Sniffer_Test_Bench.vhd failed with 5 errors.
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.endat_sniffer_test_bench(archtest_bench)
+run 1 ms
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: The mode test Passed.
+#    Time: 134630 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 154350 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 176970 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 196110 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 331370 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 351090 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 373710 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 392850 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 528110 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 547830 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 570450 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 589590 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 724850 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 744570 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 767190 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 786330 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The mode test Passed.
+#    Time: 921590 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The position test Passed.
+#    Time: 941310 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 963930 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# ** Note: The Additional Data 1 test Passed.
+#    Time: 983070 ns  Iteration: 1  Instance: /endat_sniffer_test_bench
+# Compile of Endat_Sniffer_Test_Bench.vhd was successful.
+restart
+# ** Error: (vsim-7) Failed to open info file "C:/intelFPGA_lite/20.1/modelsim_ase/modelsim_lib/_info" in read mode.
+# No such file or directory. (errno = ENOENT)
+# ** Error: (vsim-7) Failed to open info file "C:/intelFPGA_lite/20.1/modelsim_ase/ieee/_info" in read mode.
+# No such file or directory. (errno = ENOENT)
+# ** Error: (vsim-7) Failed to open info file "C:/intelFPGA_lite/20.1/modelsim_ase/ieee/_info" in read mode.
+# No such file or directory. (errno = ENOENT)
+# ** Error: (vsim-7) Failed to open info file "C:/intelFPGA_lite/20.1/modelsim_ase/ieee/_info" in read mode.
+# No such file or directory. (errno = ENOENT)
+# ** Error: (vsim-7) Failed to open info file "C:/intelFPGA_lite/20.1/modelsim_ase/ieee/_info" in read mode.
+# No such file or directory. (errno = ENOENT)
+# ** Error: (vsim-7) Failed to open info file "C:/intelFPGA_lite/20.1/modelsim_ase/std/_info" in read mode.
+# No such file or directory. (errno = ENOENT)
+# ** Error: (vsim-7) Failed to open info file "C:/intelFPGA_lite/20.1/modelsim_ase/std/_info" in read mode.
+# No such file or directory. (errno = ENOENT)
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Error (suppressible): (vsim-19) Failed to access library 'C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../std' at "C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../std".
+# No such file or directory. (errno = ENOENT)
+run 1 ms
+# No Design Loaded!
+vsim -gui work.endat_sniffer_test_bench
+# vsim -gui work.endat_sniffer_test_bench 
+# Start time: 12:22:13 on Nov 18,2021
+# ** Error (suppressible): (vsim-19) Failed to access library 'C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../std' at "C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../std".
+# No such file or directory. (errno = ENOENT)
+# Error loading design
+# End time: 13:58:30 on Nov 18,2021, Elapsed time: 1:36:17
+# Errors: 2, Warnings: 1
+# couldn't read file "C:/mtitcl/vsim/pref.tcl": Unknown error
+# couldn't read file "C:/mtitcl/vsim/codebrowser.tc_": no such file or directory
