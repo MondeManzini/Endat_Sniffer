@@ -170,9 +170,27 @@ signal add_data_1_enable                : std_logic;
 signal add_data_1_done_bit              : std_logic;
 signal add_data_2_enable                : std_logic;
 signal add_data_2_done_bit              : std_logic;
+signal crc_enable                       : std_logic;
+signal dummy_enable                     : std_logic;
+signal end_message                      : std_logic;
+signal end_mode                         : std_logic;
 signal add_test_data                    : std_logic_vector(31 downto 0);
 signal mod_test_data                    : std_logic_vector(5 downto 0);
 signal pos_test_data                    : std_logic_vector(31 downto 0);
+
+----------------------------------------------------------------------
+-- Baud Rate for Mux Signals and Component
+----------------------------------------------------------------------
+signal baud_rate_i                            : integer range 0 to 7;
+
+component Baud_Rate_Generator is
+  port (
+    Clk                                 : in  std_logic;
+    RST_I                               : in  std_logic;
+    baud_rate                           : in  integer range 0 to 7;
+    Baud_Rate_Enable                    : out std_logic  
+    );
+end component Baud_Rate_Generator;
 
 -------------------------------------------------------------------------------
 -- New Code Signal and Components
@@ -187,18 +205,24 @@ signal data2store                   : memory_array;
 ----------------------------------------
 -- General Signals
 -------------------------------------------------------------------------------
-type endat_emulate_states is (load_params, Idle, op_state, t_low_state, t_high_state);--, recov_time_tm);--, 
-                              --recov_time_tr);
+type endat_emulate_states is (load_params, Idle, op_state, t_low_state, t_high_state, tm_recov, 
+                              tr_recov);
+--type endat_emulate_states is (request_data, start_cond, test_select, send_mode, read_pos, 
+--                              send_data, read_data_1, read_data_2, read_data_3, read_data_4);
+
 type mode_states is (Idle, mode_gen, mode_write, mode_read, check_mode_res);
 type pos_states is (Idle, pos_gen, pos_write, pos_read, check_pos_res);
 type add_data_1_states is (Idle, add_data_1_write, add_data_1_gen, add_data_1_read, check_data_1_res);
 type add_data_2_states is (Idle, add_data_2_write, add_data_2_gen, add_data_2_read, check_data_2_res);
 
-signal endat_emulate_state  : endat_emulate_states;
-signal mode_state           : mode_states;  
-signal pos_state            : pos_states;  
-signal add_data_1_state     : add_data_1_states;  
-signal add_data_2_state     : add_data_2_states;  
+signal endat_emulate_state              : endat_emulate_states;
+-- signal transceiver_state             : transceiver_states;
+-- signal clock_gen_state               : clock_gen_states;
+signal mode_state                       : mode_states;  
+signal pos_state                        : pos_states;  
+signal add_data_1_state                 : add_data_1_states;
+signal add_data_2_state                 : add_data_2_states;
+
 
 signal  sClok,snrst,sStrobe,PWM_sStrobe,newClk,Clk : std_logic := '0';
 signal  stx_data,srx_data : std_logic_vector(3 downto 0) := "0000";
@@ -254,24 +278,28 @@ T1: test_bench_T
    );
    
 Endat_test: process(RST_I_i,CLK_I_i)
-variable Request_Data_cnt     : integer range 0 to 1000_000;
-variable clock_cnt            : integer range 0 to 400;
-variable data_cnt             : integer range 0 to 100;
-variable send_read_cnt        : integer range 0 to 20;
-variable mode_cycle_count     : integer range 0 to 33;
-variable pos_cycle_count      : integer range 0 to 33;
+variable Request_Data_cnt   : integer range 0 to 1000_000;
+variable clock_cnt          : integer range 0 to 400;
+variable data_cnt           : integer range 0 to 100;
+variable send_read_cnt      : integer range 0 to 20;
+variable mode_cycle_count   : integer range 0 to 33;
+variable pos_cycle_count    : integer range 0 to 33;
+variable data_cycle_count   : integer range 0 to 33;
+variable add_data_cnt       : integer range 0 to 5;
+variable clk_pls_trac       : integer range 0 to 120;
+variable clk_div_load_cnt   : integer range 0 to 50;
+variable clk_div_load       : integer range 0 to 50;
+variable pos_div_load       : integer range 0 to 50;
+variable num_clks           : integer range 0 to 125;
 variable data_1_cycle_count   : integer range 0 to 33;
 variable data_2_cycle_count   : integer range 0 to 33;
-variable add_data_cnt         : integer range 0 to 5;
-variable clk_pls_trac         : integer range 0 to 120;
-variable clk_div_load_cnt     : integer range 0 to 50;
-variable clk_div_load         : integer range 0 to 50;
-variable pos_div_load         : integer range 0 to 50;
 variable add_data_1_div_load  : integer range 0 to 50;
 variable add_data_2_div_load  : integer range 0 to 50;
-variable num_clks             : integer range 0 to 120;
-variable count_tm             : integer range 0 to 500;
+variable count_tm             : integer range 0 to 1500;
 variable count_tr             : integer range 0 to 25;
+variable var_tm               : integer range 0 to 200;
+variable tm_cnt               : integer range 0 to 5;
+
 
 begin
   if RST_I_i = '0' then
@@ -282,9 +310,19 @@ begin
     clock_cnt           := 0;
     mode_cycle_count    := 0;
     pos_cycle_count     := 0;
+    data_cycle_count    := 0;
     data_1_cycle_count  := 0;
     data_2_cycle_count  := 0;
     add_data_cnt        := 0;
+    count_tm            := 0;
+    count_tr            := 0; 
+    add_data_1_enable       <= '0';
+    add_data_1_done_bit     <= '0';
+    add_data_2_enable       <= '0';
+    add_data_2_done_bit     <= '0';
+    add_test_data           <= (OTHERS => '0');
+    add_data_1_i        <= (OTHERS => '0');
+    add_data_2_i        <= (OTHERS => '0');
     clk_div_load_cnt    := 0;
     clk_div_load        := 0;
     pos_div_load        := 0;
@@ -294,6 +332,7 @@ begin
     clock_latch         <= '0';
     stop_clock          <= '0';
     mode_enable         <= '0';
+    dummy_enable        <= '0';
     pos_enable          <= '0';
     crc_enable              <= '0';
     add_data_1_enable       <= '0';
@@ -323,14 +362,14 @@ begin
     case endat_emulate_state is 
       when load_params =>
         mode_data_i         <= b"000111";       -- Mode 1 Command 07 000111
-        pos_data_i          <= x"89384756";     -- Position Command 7E1FC3F8
-        add_data_1_i        <= x"FE1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
-        add_data_2_i        <= x"7E1FC3F8";     -- Additional Data 1 Command 7E1FC3F8
+        pos_data_i          <= x"89384757";     -- Position Command 7E1FC3F8
         clk_div_load        := 13;              -- 12.5 counts
         mode_cycle_count    := 6;               -- 6 Mode Bits
         pos_div_load        := 32;              -- Position Number of Bits - 28 Bits for RCN 2510 Encoder
-        add_data_1_div_load := 30;              -- Position Number of Bits
-        add_data_2_div_load := 30;              -- Position Number of Bits
+        add_data_1_i        <= x"FE1FC38F";     -- Additional Data 1 Command 7E1FC3F8
+        add_data_2_i        <= x"FE1FC38F";     -- Additional Data 1 Command 7E1FC3F8
+        add_data_1_div_load := 32;              -- Position Number of Bits
+        add_data_2_div_load := 32;              -- Position Number of Bits
         endat_emulate_state <= Idle;            
         
       when Idle => 
@@ -339,9 +378,10 @@ begin
         clock_cnt         := 0;
         pos_cycle_count   := pos_div_load;
         clock_latch       <= '0';
-        endat_data_i      <= '0'; 
+        endat_data_i      <= '1'; 
         endat_clk_i       <= '1'; 
-        clk_pls_trac      := 0;
+        count_tm          := 0;
+        count_tr          := 0; 
         mode_done_bit     <= '0';
         end_message       <= '0';
         crc_enable        <= '0';
@@ -349,9 +389,9 @@ begin
         pos_enable        <= '0';
         mod_test_data     <= b"000000";
         pos_test_data     <= X"00000000";
-        add_test_data     <= X"00000000";
+        add_test_data     <= x"00000000";
         --------- TX Generator -----------
-        if Request_Data_cnt = 6500 then  -- 100 ms Retrieve 0 for 5000_000
+        if Request_Data_cnt = 650 then  -- 100 ms Retrieve 0 for 5000_000
           Request_Data_cnt  := 0;
           endat_tx_i        <= '1';     
         else
@@ -361,8 +401,29 @@ begin
         --------- End of TX Generator -----------
 
         if endat_tx_i = '1' then                 
+          tm_cnt  := tm_cnt + 1;
           endat_emulate_state <= t_low_state;
         end if;     
+
+        if tm_cnt = 4 then
+          tm_cnt := 0;
+        end if;
+
+        -- Test from different t_m times
+        case tm_cnt is
+          when 1 =>
+            var_tm := 62;
+
+          when 2 =>
+            var_tm := 125;
+
+          when 3 =>
+            var_tm := 187;
+
+          when others =>
+            var_tm := 0;
+
+        end case;
 
       when t_low_state =>
         if clock_cnt = clk_div_load then         
@@ -381,6 +442,19 @@ begin
               crc_enable          <= '0';
               num_clks            := num_clks + 1;
               endat_emulate_state <= op_state;
+            elsif add_data_1_done_bit = '1' then
+              add_data_1_done_bit <= '0';
+              num_clks            := num_clks + 1;
+              endat_emulate_state <= op_state;
+            elsif add_data_2_done_bit = '1' then
+              add_data_2_done_bit <= '0';
+              num_clks            := num_clks + 1;
+              endat_emulate_state <= op_state;
+            elsif dummy_enable = '1' then               -- Last two mode dummy bits
+              dummy_enable        <= '0';  
+              num_clks            := num_clks + 1;
+              endat_emulate_state <= op_state;
+
             else
               endat_emulate_state <= op_state;
             end if;
@@ -405,7 +479,18 @@ begin
         elsif (num_clks = 10) then                  -- Bit 2 of Last two mode dummy bits
           dummy_enable        <= '1';  
           endat_data_i        <= '1';
+          dummy_enable        <= '1'; 
           endat_emulate_state <= t_high_state;
+        elsif num_clks > 2 and num_clks < 9 then    -- Mode operation
+          mode_enable         <= '1';
+          endat_emulate_state <= t_high_state;
+        elsif (num_clks = 9) then                   -- Bit 1 of Last two mode dummy bits
+          dummy_enable        <= '1';  
+          endat_data_i        <= '0';
+          endat_emulate_state <= t_high_state;
+        elsif (num_clks = 10) then                  -- Bit 2 of Last two mode dummy bits
+          dummy_enable        <= '1';  
+          endat_data_i        <= '1';
         elsif num_clks > 10 and num_clks < 16 then  -- Clock stretching 5 clocks
           dummy_enable        <= '1';  
           endat_data_i        <= '0';
@@ -430,13 +515,13 @@ begin
           endat_emulate_state <= t_high_state;
         else
           endat_emulate_state <= t_high_state;
-        end if;
+        end if;      
 
       when t_high_state =>
         if clock_cnt = clk_div_load then         
           endat_clk_i <= '1';                         -- Rising edge
           clock_cnt   := 0;
-          if (mode_done_bit = '1') then            -- mode state
+          if mode_done_bit = '1' then            -- mode state
             mode_done_bit       <= '0';
             endat_emulate_state <= t_low_state;
           elsif dummy_enable = '1' then               -- Last two mode dummy bits
@@ -451,40 +536,80 @@ begin
             pos_enable          <= '1'; 
             endat_data_i        <= '0';                -- Position Start Bit  
             endat_emulate_state <= t_low_state;
-          elsif num_clks > 18 and num_clks < 47 then   -- Position operation
+          elsif num_clks > 18 and num_clks < 48 then   -- Position operation
             pos_enable          <= '1';
             endat_emulate_state <= t_low_state;
           elsif num_clks > 47 and num_clks < 53 then   -- Position 5 CRC Position bits
             crc_enable          <= '1';  
             endat_data_i        <= '1';
-            endat_emulate_state <= t_low_state;       -- 1 dummy clock bit before data 1
+            endat_emulate_state <= t_low_state;    
+          elsif num_clks = 53 then              
+            dummy_enable        <= '1'; 
+            endat_data_i        <= '0';
+            endat_emulate_state <= t_low_state;   
+          elsif num_clks = 54 then              
+            add_data_1_enable   <= '1'; 
+            endat_emulate_state <= t_low_state;
+          elsif num_clks > 54 and num_clks < 81 then  -- Additional Data 1 operation - 24 bits + 1 bit above
+            add_data_1_enable   <= '1';
+            endat_emulate_state <= t_low_state;
+          elsif num_clks > 80 and num_clks < 87 then  -- Last 5 CRC Additional Data 1 bits
+            add_data_1_enable   <= '1';
+            endat_emulate_state <= t_low_state;
+          elsif num_clks = 87 then                    -- Additional Data 1 Dummy
+            add_data_1_enable   <= '1';
+            endat_emulate_state <= t_low_state;
+          elsif num_clks = 88 then              
+            dummy_enable        <= '1'; 
+            endat_data_i        <= '0';
+            endat_emulate_state <= t_low_state; 
+          elsif num_clks = 89 then                    
+            add_data_2_enable   <= '1'; 
+            endat_emulate_state <= t_low_state;
+          elsif num_clks > 89 and num_clks < 116 then  -- Additional Data 2 operation - 24 bits + 1 bit above
+            add_data_2_enable   <= '1';
+            endat_emulate_state <= t_low_state;
+          elsif num_clks > 115 and num_clks < 121 then  -- Last 5 CRC Additional Data 2 bits
+            add_data_2_enable   <= '1';
+            endat_emulate_state <= t_low_state;
+          elsif num_clks = 121 then                     -- Additional Data 2 Dummy
+            add_data_2_enable   <= '1';
+            endat_emulate_state <= t_low_state;
           elsif end_message = '1' then 
             end_message         <= '0';
             num_clks            := 0;
-            endat_emulate_state <= load_params;       -- End of message
+            endat_emulate_state <= tm_recov;       -- End of message
             endat_data_i        <= '1';               -- Pull data high on end
-          elsif add_data_1_done_bit = '1' then
-            add_data_1_done_bit <= '0';
-            num_clks            := num_clks + 1;
-            endat_emulate_state <= t_low_state;
-          elsif add_data_2_done_bit = '1' then
-            add_data_2_done_bit <= '0';
-            num_clks            := num_clks + 1;
-            endat_emulate_state <= t_low_state;
-          elsif end_mode = '1' then 
-            end_mode            <= '0';
-            num_clks            := num_clks + 1;
-            endat_emulate_state <= t_low_state;       -- End of short message
-          else
-            endat_emulate_state <= t_low_state; 
+            endat_clk_i         <= '1';               -- Pull clock high on end
           end if;
         else
           clock_cnt             := clock_cnt + 1;
         end if; 
 
--------------------------------------------------
----------------- Mode State ---------------------
--------------------------------------------------
+      when tm_recov => 
+        if count_tm = var_tm then
+          count_tm            := 0;
+          endat_emulate_state <= tr_recov;
+        else
+          count_tm            := count_tm + 1;
+          endat_data_i        <= '1';
+        end if;
+
+      when tr_recov => 
+        if count_tr = 25 then
+          count_tr            := 0;
+          endat_emulate_state <= load_params;
+          endat_data_i        <= '1';
+        else
+          count_tr            := count_tr + 1;
+          endat_data_i        <= '0';
+        end if;
+
+    end case;         -- End Endat case
+
+    -------------------------------------------------
+    ---------------- Mode State ---------------------
+    -------------------------------------------------
     case mode_state is
       when Idle =>
         if mode_enable = '1' then
@@ -521,9 +646,9 @@ begin
           end if;
     end case; -- End mode states
 
--------------------------------------------------
--------------- Position State -------------------
--------------------------------------------------
+    -------------------------------------------------
+    -------------- Position State -------------------
+    -------------------------------------------------
     case pos_state is
       when Idle =>
         if pos_enable = '1' then
@@ -559,10 +684,55 @@ begin
           pos_state      <= Idle;
         end if;
     end case; -- End position state
+    
+    -------------------------------------------------
+    -------------- Additional Data 1 State ----------
+    -------------------------------------------------
+    case add_data_1_state is
+      when Idle =>
+        if add_data_1_enable = '1' then
+          add_data_1_state  <= add_data_1_gen; 
+        end if;
 
--------------------------------------------------
--------------- Additional Data 1 State ----------
--------------------------------------------------
+      when add_data_1_gen =>
+        add_data_1_enable <= '0';
+        if data_1_cycle_count > 0 then 
+          add_data_1_state    <= add_data_1_write;
+          data_1_cycle_count  := data_1_cycle_count - 1;
+        elsif data_1_cycle_count = 0 then
+          add_data_1_state    <= add_data_1_write;
+        end if;
+
+    when add_data_1_write =>
+      endat_data_i      <= add_data_1_i(data_1_cycle_count);  -- LSB first (0)                     
+      add_data_1_state  <= add_data_1_read;
+
+    when add_data_1_read =>
+      add_test_data(data_1_cycle_count) <= endat_data_i;
+      if data_1_cycle_count = 0 then
+        add_data_1_state  <= check_data_1_res;
+      else
+        add_data_1_done_bit <= '1';
+        add_data_1_state    <= Idle;
+      end if;
+
+    when check_data_1_res =>
+      if add_test_data = add_data_1_i then
+        report "The Additional Data 1 test Passed." severity note;
+        add_data_1_done_bit <= '1';
+        add_data_1_state    <= Idle;
+        add_test_data       <= x"00000000";
+      else
+        report "The Additional Data 1 test Failed" severity note;
+        add_data_1_done_bit <= '1';
+        add_data_1_state    <= Idle;
+        add_test_data       <= x"00000000";
+      end if;
+    end case;               -- End Additional Data 1 
+
+    -------------------------------------------------
+    -------------- Additional Data 2 State ----------
+    -------------------------------------------------
     case add_data_1_state is
       when Idle =>
         if add_data_1_enable = '1' then
@@ -610,8 +780,12 @@ begin
 
       when add_data_2_gen =>
         add_data_2_enable   <= '0';
-        add_data_2_state    <= add_data_2_write;
-        data_2_cycle_count  := data_2_cycle_count - 1;
+        if data_2_cycle_count > 0 then 
+          add_data_2_state    <= add_data_2_write;
+          data_2_cycle_count  := data_2_cycle_count - 1;
+        elsif data_2_cycle_count = 0 then
+          add_data_2_state    <= add_data_2_write;
+        end if;
 
     when add_data_2_write =>
       endat_data_i      <= add_data_2_i(data_2_cycle_count);  -- LSB first (0)                     
@@ -636,7 +810,7 @@ begin
         add_data_2_done_bit   <= '1';
         add_data_2_state      <= Idle;
       end if;
-    end case;         -- End Additional Data 2 case
+    end case;         -- End Additional Data 2 case 
     end case;         -- End Endat case
   end if;
   end process Endat_test;
@@ -731,4 +905,3 @@ begin
   end process;
 
 end Archtest_bench;
-

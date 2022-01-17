@@ -1,0 +1,220 @@
+C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/SPI_Analog_Driver.vhd {2 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/SPI_Analog_Driver.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package Version_Ascii
+-- Compiling entity SPI_Analog_Driver
+-- Compiling architecture Arch_DUT of SPI_Analog_Driver
+** Warning: C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/SPI_Analog_Driver.vhd(147): (vcom-1272) Length of expected is 64; length of actual is 36.
+
+} {} {}} C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/I2C_Driver.vhd {2 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/I2C_Driver.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity I2C_Driver
+-- Compiling architecture logic of I2C_Driver
+** Warning: C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/I2C_Driver.vhd(72): (vcom-1937) Choice in CASE statement alternative must be locally static.
+** Warning: C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/I2C_Driver.vhd(75): (vcom-1937) Choice in CASE statement alternative must be locally static.
+** Warning: C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/I2C_Driver.vhd(78): (vcom-1937) Choice in CASE statement alternative must be locally static.
+
+} {} {}} C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/SPI_Analog_Handler.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/SPI_Analog_Handler.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package Version_Ascii
+-- Compiling entity SPI_Analog_Handler
+-- Compiling architecture Arch_DUT of SPI_Analog_Handler
+
+} {} {}} C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/myfifo8.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/myfifo8.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity myfifo8
+-- Compiling architecture SYN of myfifo8
+
+} {} {}} C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/scr/Baud_Rate_Generator.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/scr/Baud_Rate_Generator.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity Baud_Rate_Generator
+-- Compiling architecture Arch_DUT of Baud_Rate_Generator
+
+} {} {}} {C:/Users/User/Documents/GitHub/Work/Real_Time_Clock_Firmware/Testbench Files/test_bench_T.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/User/Documents/GitHub/Work/Real_Time_Clock_Firmware/Testbench Files/test_bench_T.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Compiling entity test_bench_T
+-- Compiling architecture Archtest_bench_T of test_bench_T
+
+} {} {}} C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/Version_Logger.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/Version_Logger.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package NUMERIC_STD
+-- Loading package STD_LOGIC_SIGNED
+-- Compiling entity Version_Logger
+-- Compiling architecture log_to_file of Version_Logger
+
+} {} {}} C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/Version_Ascii.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/Version_Ascii.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Compiling package Version_Ascii
+
+} {} {}} C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/SPI_IO_Driver.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/SPI_IO_Driver.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package Version_Ascii
+-- Compiling entity SPI_IO_Driver
+-- Compiling architecture Arch_DUT of SPI_IO_Driver
+
+} {} {}} C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/Main_Demux.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/Main_Demux.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package NUMERIC_STD
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package Version_Ascii
+-- Compiling entity Main_Demux
+-- Compiling architecture Arch_DUT of Main_Demux
+
+} {} {}} C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/scr/EndatSniffer_Mux.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/scr/EndatSniffer_Mux.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package Version_Ascii
+-- Compiling entity EndatSniffer_Mux
+-- Compiling architecture Arch_DUT of EndatSniffer_Mux
+
+} {} {}} C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/SPI_Input_Handler.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/SPI_Input_Handler.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Compiling entity SPI_Input_Handler
+-- Compiling architecture Arch_DUT of SPI_Input_Handler
+
+} {} {}} {C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/Testbench Files/txt_util.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/Testbench Files/txt_util.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling package txt_util
+-- Compiling package body txt_util
+-- Loading package txt_util
+
+} {} {}} C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/SPI_Output_Handler.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/SPI_Output_Handler.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package Version_Ascii
+-- Compiling entity SPI_Output_Handler
+-- Compiling architecture Arch_DUT of SPI_Output_Handler
+
+} {} {}} C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/APE_Test_System_FPGA_Firmware.vhd {0 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/APE_Test_System_FPGA_Firmware.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity APE_Test_System_FPGA_Firmware
+-- Compiling architecture Arch_DUT of APE_Test_System_FPGA_Firmware
+-- Loading entity Version_Reg
+-- Loading package std_logic_arith
+-- Loading package Version_Ascii
+-- Loading entity SPI_IO_Driver
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading entity Main_Demux
+-- Loading entity Main_Mux
+** Error: C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/APE_Test_System_FPGA_Firmware.vhd(1510): (vcom-1484) Unknown formal identifier "Watchdog_Reset".
+** Error: C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/APE_Test_System_FPGA_Firmware.vhd(1511): (vcom-1484) Unknown formal identifier "Mux_watchdog".
+-- Loading entity Baud_Rate_Generator
+** Note: C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/APE_Test_System_FPGA_Firmware.vhd(1654): VHDL Compiler exiting
+
+} {16.0 18.0} {}} {C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/Testbench Files/APE_Test_System_FPGA_Firmware_Test_Bench.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/Testbench Files/APE_Test_System_FPGA_Firmware_Test_Bench.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package NUMERIC_STD
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package txt_util
+-- Loading package Version_Ascii
+-- Loading package util
+-- Compiling entity APE_Test_System_FPGA_Firmware_Test_Bench
+-- Compiling architecture Archtest_bench of APE_Test_System_FPGA_Firmware_Test_Bench
+-- Loading package STD_LOGIC_SIGNED
+-- Loading entity Version_Logger
+-- Loading entity Version_RX_UASRT
+-- Loading entity Version_Reg
+-- Loading entity I2C_Driver
+-- Loading entity Real_Time_Clock_I2C_Handler
+-- Loading entity SPI_IO_Driver
+-- Loading entity SPI_Output_Handler
+-- Loading entity Main_Demux
+-- Loading entity Main_Mux
+-- Loading entity Baud_Rate_Generator
+
+} {} {}} C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/Version_RX_UASRT.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/Version_RX_UASRT.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package txt_util
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity Version_RX_UASRT
+-- Compiling architecture Arch_DUT of Version_RX_UASRT
+
+} {} {}} C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/scr/EndatSniffer.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/Endat_Sniffer/scr/EndatSniffer.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity EndatSniffer
+-- Compiling architecture Arch_DUT of EndatSniffer
+
+} {} {}} C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/Real_Time_Clock_I2C_Handler.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/User/Documents/GitHub/Work/APE_Test_System_FPGA_Firmware/scr/Real_Time_Clock_I2C_Handler.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package NUMERIC_STD
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package Version_Ascii
+-- Compiling entity Real_Time_Clock_I2C_Handler
+-- Compiling architecture Arch_DUT of Real_Time_Clock_I2C_Handler
+
+} {} {}}
